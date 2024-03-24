@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=17B_Personal_Project_EStore
+PROJECTNAME=17B_Personal_Project_EStore_V1
 
 # Active Configuration
 DEFAULTCONF=Debug
