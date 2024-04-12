@@ -39,6 +39,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>inventory.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -80,6 +81,8 @@
       <item path="User.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inventory.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -132,6 +135,8 @@
       <item path="User.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inventory.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

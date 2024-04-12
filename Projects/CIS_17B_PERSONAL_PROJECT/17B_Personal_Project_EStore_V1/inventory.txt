@@ -1,0 +1,6 @@
+5
+1 T-shirt 5.99
+2 Pants 15.99
+3 Shoes 29.99
+4 Umbrella 4.99
+5 Jacket 35.00

@@ -9,8 +9,13 @@
 #ifndef CART_H
 #define CART_H
 
+#include "Item.h"
+
 class Cart {
 private:
+    Item _items[SIZE];
+    int _cartItems;
+    
 
 public:
     Cart();

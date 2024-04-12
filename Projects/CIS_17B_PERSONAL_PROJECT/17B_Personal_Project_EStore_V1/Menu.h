@@ -17,6 +17,8 @@ public:
     Menu(const Menu& orig);
     virtual ~Menu();
 
+void clearScreen();
+void clearScreenChoice();
 
 };
 

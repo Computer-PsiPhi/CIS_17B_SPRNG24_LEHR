@@ -8,12 +8,22 @@
 
 #ifndef ITEM_H
 #define ITEM_H
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+static const unsigned short SIZE = 100;
 
 class Item {
 private:
+    string _name;
+    float _price;
+    int _itemNum;
+    int _quantity;
 
 public:
-    Item();
+    Item(): _name(""), _price(0), _quantity(0), _itemNum(0){};
     Item(const Item& orig);
     virtual ~Item();
 

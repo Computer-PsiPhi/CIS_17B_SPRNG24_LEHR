@@ -9,8 +9,8 @@
 #include "Store.h"
 using namespace std;
 
-Store::Store() {
-}
+//Store::Store() {
+//}
 
 Store::Store(const Store& orig) {
 }
