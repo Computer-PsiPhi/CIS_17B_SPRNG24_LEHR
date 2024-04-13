@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     const string inventory = "inventory.txt";
 
     Store s;
-    
+    s.loadStore(inventory);
     return 0;
 }
 
