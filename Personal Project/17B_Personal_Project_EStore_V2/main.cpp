@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
     Store s;
     s.loadStore(inventory);
     s.displayStore();
+    
     return 0;
 }
 
