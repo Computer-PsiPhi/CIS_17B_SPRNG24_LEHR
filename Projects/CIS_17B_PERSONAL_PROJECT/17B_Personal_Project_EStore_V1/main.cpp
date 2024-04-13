@@ -12,29 +12,14 @@
 using namespace std;
 
 #include "User.h"
-/*bob
+#include "Store.h"
+/*
  * 
  */
 int main(int argc, char** argv) {
 
-    
-    User u;
-    
-    u.setName();
-    cout<<u.getName()<<endl;
-    
-    u.setUsrName();
-    cout<<u.getUsrName()<<endl;
-    
-    u.setPassWord();
-    cout<<u.getPassWord()<<endl;
-    
-    u.setAddress();
-    cout<<u.getAddress()<<endl;
-    
-    u.setEmail();
-    cout<<u.getEmail()<<endl;
-    
+    const string inventory = "inventory.txt";
+
     return 0;
 }
 

@@ -14,6 +14,7 @@
 using namespace std;
 
 #include "Item.h"
+#include "Cart.h"
 
 class User {
 private:
@@ -31,6 +32,7 @@ private:
     int _cartSize;
     Item shopHistory[SIZE];
     int _totalHistoy;
+    Cart shoppingCart[SIZE];
 
 
 public:
@@ -57,7 +59,7 @@ public:
     const string & getAddress() const;
 
 
-
+    unsigned int l = User::_name.length();
 };
 
 #endif /* USER_H */

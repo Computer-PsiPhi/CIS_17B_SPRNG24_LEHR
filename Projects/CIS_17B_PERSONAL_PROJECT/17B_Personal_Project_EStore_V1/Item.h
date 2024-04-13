@@ -1,8 +1,6 @@
-
 /* 
  * File:   Item.h
  * Author: Noel Perez
- *
  * Created on March 23, 2024, 10:52 PM
  */
 
@@ -10,6 +8,7 @@
 #define ITEM_H
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -24,10 +23,22 @@ private:
 
 public:
     Item(): _name(""), _price(0), _quantity(0), _itemNum(0){};
+    Item(int itemNum, const string &name, float price, int quantity=0  );
     Item(const Item& orig);
     virtual ~Item();
 
-
+    void setItemNum(const int &num)   { this->_itemNum = num; };
+    void setName(const string & name) {this->_name = name; };
+    void setPrice(const float &price) {this->_price = price; };
+    void setquant(const int &quant)   {this->_quantity = quant; } 
+    
+    int getItemNum()const {return this->_itemNum; }
+    string getName()const {return this->_name; }
+    float getPrice()const {return this->_price; }
+    int getQuant()const {return this->_quantity; }
+    
+ 
+    
 };
 
 #endif /* ITEM_H */

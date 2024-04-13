@@ -18,13 +18,14 @@ private:
     int _totalItems;
 
 public:
-    Store(): _totalItems(0){};
+    Store(): _totalItems{0}, _inventory{} {};
     Store(const Store& orig);
     virtual ~Store();
 
     void loadStore(const string &fileName);
     void displayStore();
-  
+    Item getItem(int itemNum);
+    int getTotalItem(){return this->_totalItems; };
 };
 
 #endif /* STORE_H */

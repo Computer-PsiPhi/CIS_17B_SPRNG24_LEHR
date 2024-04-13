@@ -18,3 +18,5 @@ Item::Item(const Item& orig) {
 Item::~Item() {
 }
 
+Item::Item(int itemNum, const string &name, float price, int quantity ):
+_itemNum{itemNum}, _name{name}, _price{price} , _quantity{quantity}{ }

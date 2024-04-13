@@ -102,8 +102,8 @@ bool User::isValAddss(string str, int minLen) {
     // Make sure the string contains all matches to the regular expressions
     return (
             str.length() >= minLen and
-    //    not regex_search(str, specialChars) and
-         //   regex_search(str, upperCase) and
+    //  not regex_search(str, specialChars) and
+       //   regex_search(str, upperCase) and
             regex_search(str, lowerCase) and
             regex_search(str, numbers) and
             regex_search(str, spaces)
