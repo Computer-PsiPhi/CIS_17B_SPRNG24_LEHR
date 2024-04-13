@@ -2,7 +2,7 @@
 /* 
  * File:   main.cpp
  * Author: Noel Perez
- * Created on April 13, 2024, 4:16 AM
+ * Created on March 23, 2024, 10:48 PM
  * Purpose:
  */
 
@@ -11,10 +11,14 @@
 
 using namespace std;
 
+#include "User.h"
+#include "Store.h"
 /*
  * 
  */
 int main(int argc, char** argv) {
+
+    const string inventory = "inventory.txt";
 
     return 0;
 }
