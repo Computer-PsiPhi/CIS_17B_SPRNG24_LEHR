@@ -67,7 +67,7 @@ void Cart::showCart() {
 
 float Cart::checkOut() {
     // Calculate total
-    float total = 0.0;
+    float total = 0.0f;
     for (short i = 0; i < this->_itemCount; i++) {
         total += this->_items[i].getPrice() * this->_items[i].getQuant();
     }
