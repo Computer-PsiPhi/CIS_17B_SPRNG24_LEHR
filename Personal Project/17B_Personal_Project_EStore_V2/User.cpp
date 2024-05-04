@@ -12,7 +12,12 @@
 
 using namespace std;
 
+
 User::User() {
+}
+
+
+User::User(const string& u, const string& a,  int n) : _userName(u), _address(a), _recNum(n) ,_totalHistory(0) {  
 }
 
 User::User(const User& orig) {
@@ -134,7 +139,7 @@ void User::setName() {
 }
 
 void User::setUsrName() {
-    string usrName = "";
+    string usrName = {};
     bool isGood = false;
 
     while (!isGood) {
@@ -240,4 +245,7 @@ const string & User::getPassWord() const {
 
 const string & User::getAddress() const {
     return this->_address;
+}
+const int User::getRecNum() const {
+    return _recNum;
 }

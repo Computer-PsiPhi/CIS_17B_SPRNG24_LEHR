@@ -1,4 +1,4 @@
-
+ 
 /* 
  * File:   Store.h
  * Author: Noel Perez
@@ -24,8 +24,8 @@ public:
 
     void loadStore(const string &fileName);
     void displayStore();
-    Item getItem(int itemNum);
-    int getTotalItem(){return this->_totalItems; };
+   const Item &getItem(int itemNum)const;
+    int getTotalItems() const {return this->_totalItems; } ;
 };
 
 #endif /* STORE_H */

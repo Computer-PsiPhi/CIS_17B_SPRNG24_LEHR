@@ -30,7 +30,7 @@ public:
     void showCart();
     float checkOut();
     
-
+    
 };
 #endif /* CART_H */
 

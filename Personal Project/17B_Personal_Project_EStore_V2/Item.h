@@ -23,7 +23,7 @@ private:
 
 public:
     Item(): _name(""), _price(0), _quantity(0), _itemNum(0){};
-    Item(int itemNum, const string &name, float price, int quantity=0  );
+    Item(int itemNum, const string &name, float price, int quantity=1  );
     Item(const Item& orig);
     virtual ~Item();
 
@@ -37,7 +37,12 @@ public:
     float getPrice()const {return this->_price; }
     int getQuant()const {return this->_quantity; }
     
- 
+    void display(){
+        cout << "Item Number: " << _itemNum << endl;
+        cout << "Name: " << _name << endl;
+        cout << "Price: $" << fixed << setprecision(2) << _price << endl;
+        cout << "Quantity: " << _quantity << endl;
+    }
     
 };
 

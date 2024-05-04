@@ -34,7 +34,7 @@ void Store::loadStore(const string &fileName) {
         unsigned short i = 0;
         int num = 0;
         float p = 0.0f;
-        string str = "";
+        string str = {};
 
         while (getline(invntryFile, line) and i < _totalItems) {
             stringstream stream(line);
@@ -72,15 +72,30 @@ void Store::displayStore() {
     else cout<<"Store is empty!"<<endl;
 }
 
-Item Store::getItem(int itemNum){
-    bool isGood=false;
-       for (short i = 0; i < this->_totalItems && !isGood; i++) {
-           cout<<"Enter item number "<<endl;
-           cin>>itemNum;
-            if (this->_inventory[i].getItemNum() == itemNum) {
-                isGood = true;
-                break;
+const Item &Store::getItem(int itemNum)const{
+//    bool isGood=false;
+//       for (short i = 0; i < this->_totalItems && !isGood; i++) {
+////           cout<<"storecpp Enter item number: "<<endl;
+////           cin>>itemNum;
+////           cin.ignore();
+//            if (this->_inventory[i].getItemNum() == itemNum) {
+//                isGood = true;
+//                break;
+//            }
+//        }
+//    return this->_inventory[itemNum];
+    
+      try {
+        while (true) {
+            if (itemNum < 0 or itemNum > _totalItems) {
+                throw out_of_range("Invalid Item Number");
             }
+            return _inventory[itemNum];
+            break;
         }
-    return this->_inventory[itemNum];
+    } catch (const exception& e) {
+        cerr << e.what() << " Please enter a valid number between 1 and " << _totalItems << ": ";
+        cin >> itemNum;
+        return this->_inventory[itemNum]; 
+    }
 }
