@@ -99,6 +99,8 @@ public:
     void setAdminStatus(bool status);
     bool getlogStatus();
     bool getadminStatus();
+    
+    void displayContactInfo();
 };
 
 #endif /* USER_H */

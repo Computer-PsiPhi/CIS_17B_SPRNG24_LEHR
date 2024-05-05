@@ -7,7 +7,8 @@
 #include "User.h"
 #include "Admin.h"
 #include <regex>
-
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 User::User():  _name(),
@@ -294,20 +295,35 @@ const int User::getRecNum() const {
 }
 
 void User::fillRand(const Store &store) {
-    srand(static_cast<unsigned int>(time(nullptr)));
-    cout << endl;
-    int numItems = rand() % 10 + 1; // Randomly choose number of items (1-10)
-    // cout << "random numItems: " << numItems << endl;
-  //  cout << "num items in store: " << store.getTotalItems() << endl;
+//    static bool seeded = false;
+//    if (!seeded) {
+//        srand(static_cast<unsigned int>(time(nullptr)));
+//        seeded = true;
+//    }
+//        
+    // Create an array of item indices 
+    int *itemIndices = new int[store.getTotalItems()];
+    for (int i = 0; i < store.getTotalItems(); i++) {
+        itemIndices[i] = i;
+    }
 
-    // Temporary array to store selected item numbers
-    int selected[numItems];
+    // Shuffle 
+    for (int i = store.getTotalItems() - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int temp = itemIndices[i];
+        itemIndices[i] = itemIndices[j];
+        itemIndices[j] = temp;
+    }
+// Randomly choose number of items 
+    int numItems = min(rand() % 10 + 1, store.getTotalItems()); 
+
+    // Temp array 
+    int *selected = new int[numItems];
 
     for (int i = 0; i < numItems; i++) {
-        int itemIndx = rand() % store.getTotalItems();
+        int itemIndx = itemIndices[i]; 
         int itemNum = store.getItem(itemIndx).getItemNum();
-
-        // Check if itemNum is already in selected array
+       
         bool exists = false;
         for (int j = 0; j < i; j++) {
             if (selected[j] == itemNum) {
@@ -323,14 +339,25 @@ void User::fillRand(const Store &store) {
             _totalHistory--;
         }
     }
+
+    delete[] itemIndices;
+    delete[] selected;
 }
 
 void User::displayHistory() {
+    cout<<endl;
+    cout<<endl;
+    cout<<"**********************"<<endl;
+    cout << "Record Number: " << this->getRecNum() + 1 << endl;
+    cout<<"**********************"<<endl;
+    User::displayContactInfo();
+    cout<<"Shopping History "<<endl;
+    cout<<"======================"<<endl;
     for (short i = 0; i < this->_totalHistory; i++) {
-        cout << "recNum " << this->getRecNum() << endl;
         this->_shoppingHistory[i].display();
         cout << "-------------------" << endl;
     }
+     
 }
 
 bool User::verifyCred(const string &password, const string &userName) {
@@ -355,3 +382,14 @@ bool User::getlogStatus() {
 bool User::getadminStatus() {
     return _isAdmin;
 }
+
+ void User::displayContactInfo(){
+     cout<<"Personal Information: "<<endl;
+     cout<<"======================"<<endl;
+cout << left << setw(11) << "Name:" << right << setw(10) << this->_name << endl;
+cout << left << setw(11) << "Username:" << right << setw(10) << this->_userName << endl;
+cout << left << setw(11) << "Email:" << right << setw(10) << this->_email << endl;
+cout << left << setw(11) << "Address:" << right << setw(10) << this->_address << endl;
+cout<<endl;
+ }
+ 

@@ -26,6 +26,8 @@ public:
     void displayStore();
    const Item &getItem(int itemNum)const;
     int getTotalItems() const {return this->_totalItems; } ;
+    
+   
 };
 
 #endif /* STORE_H */

@@ -32,21 +32,21 @@ int main(int argc, char** argv) {
     User customers[SIZE] = {};
     int randomUsers = 10;
 
-    for (int i = 1; i <= randomUsers; i++) {
+    for (int i = 0; i < randomUsers; i++) {
         int num = rand() % 900 * 5 + 1000;
         int zip = rand() % 9999 * 5 + 9999;
-        //cout<<num<<endl;
+        
         string name = "Customer",
                 username = "!UserName",
                 email = "email@gmail.com",
                 password = "PassWord_",
                 address = to_string(num) += " A Street Somewhere ";
-        address.insert(address.size(), to_string(zip));
-        address += ", USA";
+                address.insert(address.size(), to_string(zip));
+                address += ", USA";
 
 
-        name.append(to_string(i));
-        username.append(to_string(i));
+        name.append(to_string(i+1));
+        username.append(to_string(i+1));
         email.insert(5, to_string(i)),
                 password.append(to_string(i));
 
@@ -59,13 +59,16 @@ int main(int argc, char** argv) {
                 false,
                 false,
                 i);
-        customers[i].fillRand(store);
         
-        customers[i].displayHistory();
+        customers[i].fillRand(store);
     }
 
 
-
+    for(int i =0; i< randomUsers ; i++){
+     
+     //   customers[i].displayContactInfo();
+        customers[i].displayHistory();
+    }
 
 
     //    user.fillRand(store);
