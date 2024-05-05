@@ -110,7 +110,7 @@ void Store::genRandomData( User *customers,int randomUsers, int SIZE){
                 username = "!UserName",
                 email = "email@gmail.com",
                 password = "PassWord_",
-                address = to_string(num) += " A Street Somewhere ";
+                address = to_string(num) += " A Street Somewhere " ;
                 address.insert(address.size(), to_string(zip));
                 address += ", USA";
 
