@@ -31,15 +31,17 @@ void Item::serialize(ofstream& ofs) const {
         ofs.write(reinterpret_cast<const char*>(&_price), sizeof(_price)); // Write price
         ofs.write(reinterpret_cast<const char*>(&_itemNum), sizeof(_itemNum)); // Write item number
         ofs.write(reinterpret_cast<const char*>(&_quantity), sizeof(_quantity)); // Write quantity
+        
     }
 
 // Item deserialize function definition 
   void Item::deserialize(ifstream& ifs){
-      unsigned int nameLength=0;
+      unsigned int nameLength;
       ifs.read(reinterpret_cast<char*> (&nameLength), sizeof (nameLength));
       _name.resize(nameLength);
       ifs.read(&_name[0], nameLength);
       ifs.read(reinterpret_cast<char*>(&_price), sizeof(_price));
       ifs.read(reinterpret_cast<char*>(&_itemNum), sizeof(_itemNum));
       ifs.read(reinterpret_cast<char*>(&_quantity), sizeof(_quantity));    
+      
 }

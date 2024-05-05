@@ -26,10 +26,11 @@ int main(int argc, char** argv) {
     Store store;
     store.loadStore(inventory);
     store.toTextFile(inventory);
-    store.serachStoreRecords();
+   
 
     store.toBinaryFile(products);
     store.fromBinaryFile(products);
+     store.serachStoreRecords();
 
     const int SIZE {100};
    // User customers[SIZE] = {};

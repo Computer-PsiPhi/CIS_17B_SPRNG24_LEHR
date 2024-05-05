@@ -5,7 +5,6 @@
  */
 #include <iostream>
 #include "Store.h"
-#include "Item.h"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -144,7 +143,7 @@ void Store::toTextFile(const string &file) {
             txtOut << _inventory[i].getItemNum() << ","
                     << _inventory[i].getName() << ","
                     << (float) _inventory[i].getPrice() << endl;
-            cout << _inventory[i].getPrice() << endl;
+          //  cout << _inventory[i].getPrice() << endl;
         }
         txtOut << "End of File" << endl;
         cout << "Store inventory written to file successfully." << endl;
@@ -162,7 +161,7 @@ void Store::toBinaryFile(const string &file)const {
         outFile.write(reinterpret_cast<const char*> (&numProducts), sizeof (numProducts));
 
         for (short i = 0; i < this->_totalItems; i++) {
-            cout << " inventory  " << _inventory[i].getName() << endl;
+         //   cout << " inventory  " << _inventory[i].getName() << endl;
             this->_inventory[i].serialize(outFile);
         }
         outFile.close();
@@ -177,8 +176,9 @@ void Store::fromBinaryFile(const string &file) {
     ifstream inBinFile(file, ios::binary);
 
     if (inBinFile.is_open()) {
-        unsigned int numProducts = 0;
+        unsigned int numProducts;
         inBinFile.read(reinterpret_cast<char*> (&numProducts), sizeof (numProducts));
+       // cout<<"Line 182: "<<numProducts<<endl;
         if (inBinFile.fail()) cerr << "Error in fromBinaryFile() function " << endl;
 
         if (numProducts <= this->Store::totItmsFrmFile()) {
@@ -192,7 +192,7 @@ void Store::fromBinaryFile(const string &file) {
     } else {
         cerr << "File not opened in fromBinaryFile() function" << endl;
     }
-
+    inBinFile.close();
 }
 
 int Store::totItmsFrmFile() {
@@ -220,10 +220,12 @@ void Store::serachStoreRecords() {
 
     if (!inBinaryFile.is_open()) {
         cerr << "Error opening binary file in searchStoreRecords()" << endl;
+        return;
     }
     unsigned int numProducts;
 
     inBinaryFile.read(reinterpret_cast<char*> (&numProducts), sizeof (numProducts));
+   // cout<<"227: "<<numProducts<<endl;
     if (inBinaryFile.fail()) {
         cout << "Error in reading amount of products" << endl;
         return;
@@ -233,15 +235,23 @@ void Store::serachStoreRecords() {
         return;
     }
 
+     srand(time(0)); // Seed the random number generator
+        unsigned int random = rand() % numProducts;
+        cout<<"Random index generated: "<<random+1<<endl;
+        
     long long unsigned cursor = sizeof (numProducts);
     unsigned short count = 0;
+    
+    
 
-    while (count++ < numProducts) {
+    while (++count <= random) {
         inBinaryFile.seekg(cursor, ios::beg);
         unsigned int len;
         inBinaryFile.read(reinterpret_cast<char*> (&len), sizeof (len));
         cursor += sizeof (len) + len + sizeof (float) + sizeof (int) + sizeof (int);
+        
     }
+    
 
     cout << "246: " << cursor << endl;
 
@@ -249,19 +259,21 @@ void Store::serachStoreRecords() {
     unsigned int nameLen = 0;
     string name;
     float price;
-    int quant;
     int num;
+    int quant;
+
     inBinaryFile.seekg(cursor);
     inBinaryFile.read(reinterpret_cast<char*> (&nameLen), sizeof (nameLen));
     name.resize(nameLen);
     inBinaryFile.read(&name[0], nameLen);
     inBinaryFile.read(reinterpret_cast<char*> (&price), sizeof (price));
-    inBinaryFile.read(reinterpret_cast<char*> (&quant), sizeof (quant));
     inBinaryFile.read(reinterpret_cast<char*> (&num), sizeof (num));
+    inBinaryFile.read(reinterpret_cast<char*> (&quant), sizeof (quant));
 
-    cout << "Name " << name << endl;
-    cout << "Price" << price << endl;
-    cout << "quant" << quant << endl;
-    cout << "number" << num << endl;
+    cout << "Item number: " << right <<num << endl;
+    cout << "Name: "        << right <<name << endl;
+    cout << "Price: "       << right <<price << endl;
+    cout << "Quantity: "    << right <<quant << endl;
+   
 
 }
