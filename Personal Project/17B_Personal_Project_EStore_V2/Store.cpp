@@ -100,3 +100,36 @@ const Item &Store::getItem(int itemNum)const{
     }
 }
 
+void Store::genRandomData( User *customers,int randomUsers, int SIZE){
+    
+      for (int i = 0; i < randomUsers; i++) {
+        int num = rand() % 900 * 5 + 1000;
+        int zip = rand() % 9999 * 5 + 9999;
+        
+        string name = "Customer",
+                username = "!UserName",
+                email = "email@gmail.com",
+                password = "PassWord_",
+                address = to_string(num) += " A Street Somewhere ";
+                address.insert(address.size(), to_string(zip));
+                address += ", USA";
+
+
+        name.append(to_string(i+1));
+        username.append(to_string(i+1));
+        email.insert(5, to_string(i)),
+                password.append(to_string(i));
+
+        customers[i] = User(
+                name,
+                username,
+                email,
+                password,
+                address,
+                false,
+                false,
+                i);
+      
+        customers[i].fillRand(*this);
+    }
+}

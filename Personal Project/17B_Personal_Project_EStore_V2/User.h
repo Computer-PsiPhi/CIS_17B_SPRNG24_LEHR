@@ -16,6 +16,8 @@ using namespace std;
 #include "Cart.h"
 #include "Store.h"
 
+class Store;
+
 class User {
 private:
     string _name;

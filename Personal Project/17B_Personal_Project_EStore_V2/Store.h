@@ -10,7 +10,9 @@
 #define STORE_H
 #include "Item.h"
 
+#include "User.h"
 
+class User;
 
 class Store {
 private:
@@ -27,6 +29,7 @@ public:
    const Item &getItem(int itemNum)const;
     int getTotalItems() const {return this->_totalItems; } ;
     
+    void genRandomData( User *customers,int randomUsers, int SIZE);
    
 };
 

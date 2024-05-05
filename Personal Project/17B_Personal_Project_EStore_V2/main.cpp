@@ -29,44 +29,47 @@ int main(int argc, char** argv) {
 
 
     const int SIZE = 100;
-    User customers[SIZE] = {};
+   // User customers[SIZE] = {};
+    User *customers = new User[SIZE];
+    
     int randomUsers = 10;
-
-    for (int i = 0; i < randomUsers; i++) {
-        int num = rand() % 900 * 5 + 1000;
-        int zip = rand() % 9999 * 5 + 9999;
-        
-        string name = "Customer",
-                username = "!UserName",
-                email = "email@gmail.com",
-                password = "PassWord_",
-                address = to_string(num) += " A Street Somewhere ";
-                address.insert(address.size(), to_string(zip));
-                address += ", USA";
-
-
-        name.append(to_string(i+1));
-        username.append(to_string(i+1));
-        email.insert(5, to_string(i)),
-                password.append(to_string(i));
-
-        customers[i] = User(
-                name,
-                username,
-                email,
-                password,
-                address,
-                false,
-                false,
-                i);
-        
-        customers[i].fillRand(store);
-    }
+    store.genRandomData(customers,randomUsers,SIZE);
+    
+//    for (int i = 0; i < randomUsers; i++) {
+//        int num = rand() % 900 * 5 + 1000;
+//        int zip = rand() % 9999 * 5 + 9999;
+//        
+//        string name = "Customer",
+//                username = "!UserName",
+//                email = "email@gmail.com",
+//                password = "PassWord_",
+//                address = to_string(num) += " A Street Somewhere ";
+//                address.insert(address.size(), to_string(zip));
+//                address += ", USA";
+//
+//
+//        name.append(to_string(i+1));
+//        username.append(to_string(i+1));
+//        email.insert(5, to_string(i)),
+//                password.append(to_string(i));
+//
+//        customers[i] = User(
+//                name,
+//                username,
+//                email,
+//                password,
+//                address,
+//                false,
+//                false,
+//                i);
+//        
+//        customers[i].fillRand(store);
+//    }
 
 
     for(int i =0; i< randomUsers ; i++){
      
-     //   customers[i].displayContactInfo();
+     
         customers[i].displayHistory();
     }
 
@@ -137,7 +140,7 @@ int main(int argc, char** argv) {
     //        }
     //    } while (choice != 5);
 
-
+    delete []customers;
     return 0;
 }
 

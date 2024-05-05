@@ -5,6 +5,7 @@
  */
 #include <iostream>
 #include "User.h"
+#include "Store.h"
 #include "Admin.h"
 #include <regex>
 #include <ctime>
@@ -295,12 +296,7 @@ const int User::getRecNum() const {
 }
 
 void User::fillRand(const Store &store) {
-//    static bool seeded = false;
-//    if (!seeded) {
-//        srand(static_cast<unsigned int>(time(nullptr)));
-//        seeded = true;
-//    }
-//        
+ 
     // Create an array of item indices 
     int *itemIndices = new int[store.getTotalItems()];
     for (int i = 0; i < store.getTotalItems(); i++) {
@@ -340,8 +336,8 @@ void User::fillRand(const Store &store) {
         }
     }
 
-    delete[] itemIndices;
-    delete[] selected;
+    delete []itemIndices;
+    delete []selected;
 }
 
 void User::displayHistory() {
