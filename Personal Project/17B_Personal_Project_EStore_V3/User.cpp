@@ -141,9 +141,6 @@ bool User::isValPass(string str, int minLen) {
 }
 
 bool User::isValAddss(string str, int minLen) {
-    // Regular expressions to match special character or letter requirements
-    // regex specialChars("[!@#$%^&*()_+-={};:',.<>?/]");
-    // regex upperCase("[A-Z]");
     regex lowerCase("[a-z]");
     regex numbers("[0-9]");
     regex spaces("[\\s]");
@@ -335,7 +332,6 @@ void User::fillRand(const Store &store) {
             _totalHistory--;
         }
     }
-
     delete []itemIndices;
     delete []selected;
 }
@@ -353,7 +349,6 @@ void User::displayHistory() {
         this->_shoppingHistory[i].display();
         cout << "-------------------" << endl;
     }
-     
 }
 
 bool User::verifyCred(const string &password, const string &userName) {

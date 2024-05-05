@@ -3,9 +3,10 @@
 2,Pants,15.99
 3,Dress Shoes,35.99
 4,Black Umbrella,4.99
-5,Denim Jacket,35.00
+5,Denim Jacket,35
 6,Blue shirt,7.99
 7,Shorts,10.99
 8,Sneakers,29.99
 9,Black tie,4.99
-10,Rain Jacket,40.00
+10,Rain Jacket,40
+End of File

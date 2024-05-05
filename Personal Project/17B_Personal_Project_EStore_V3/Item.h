@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
@@ -36,6 +37,9 @@ public:
     string getName()const {return this->_name; }
     float getPrice()const {return this->_price; }
     int getQuant()const {return this->_quantity; }
+    
+    void serialize(ofstream& ofs) const;
+    void deserialize(ifstream& ifs) ;
     
     void display(){
         cout << "Item Number: " << _itemNum << endl;

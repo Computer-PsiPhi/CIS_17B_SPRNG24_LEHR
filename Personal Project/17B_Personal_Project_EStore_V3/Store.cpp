@@ -50,7 +50,6 @@ void Store::loadStore(const string &fileName) {
             this->_inventory[i]=Item(num, str, p );
             i++;
         }
-
     } else {
         cerr << "Error could not open file in loadStore function" << endl;
     }
@@ -132,4 +131,86 @@ void Store::genRandomData( User *customers,int randomUsers, int SIZE){
       
         customers[i].fillRand(*this);
     }
+}
+
+void Store::toTextFile( const string &file){
+    
+    fstream txtOut;
+    
+    txtOut.open(file, ios::trunc | ios::out);
+    
+        if (txtOut.is_open()) {
+            txtOut << _totalItems << endl;
+            for (int i = 0; i < _totalItems; ++i) {
+                txtOut << _inventory[i].getItemNum() << ","
+                        << _inventory[i].getName() << ","
+                        <<(float) _inventory[i].getPrice() << endl;
+                 cout<<_inventory[i].getPrice()<<endl;
+            }
+            txtOut<< "End of File"<<endl;
+            cout << "Store inventory written to file successfully." << endl;
+        } else {
+            cerr << "Unable to open file: " <<file << endl;
+        }
+    txtOut.close();
+    }
+void Store::toBinaryFile(const string &file)const{
+    ofstream outFile(file , ios::binary);
+  
+    if(outFile.is_open()){
+    unsigned int numProducts = _totalItems;    
+    outFile.write(reinterpret_cast<const char*>(&numProducts), sizeof(numProducts));
+    
+    for(short i=0; i < this->_totalItems; i++){
+        cout<<" inventory  "<<_inventory[i].getName()<<endl;
+        this->_inventory[i].serialize(outFile);
+    }
+    outFile.close();
+    }else{
+        cerr<<"Error in toBinaryFile() function"<<endl;
+    }
+}
+
+// Function definition 
+void Store::fromBinaryFile(const string &file){
+    ifstream inBinFile(file, ios::binary);
+    
+    if(inBinFile.is_open()){
+        unsigned int numProducts = 0;
+        inBinFile.read(reinterpret_cast<char*> (&numProducts), sizeof(numProducts));
+        if(inBinFile.fail()) cerr<<"Error in fromBinaryFile() function "<<endl;
+        
+        if(numProducts <=  this->Store::totItmsFrmFile()){
+             for(short i =0; i< this->_totalItems; i++){
+            _inventory[i].deserialize(inBinFile);
+             if(inBinFile.fail()) cerr<<"Error in fromBinaryFile()"<<endl;
+             }
+        }
+        else{
+            cout<<"Number of products exceeds what is in file"<<endl;
+        }
+    }else{
+        cerr<<"File not opened in fromBinaryFile() function"<<endl;
+    }
+    
+}
+
+int Store::totItmsFrmFile(){
+    fstream text;
+    int tot=0;
+    text.open("inventory.txt", ios::in);
+    
+    if(text.is_open()){
+        text >> tot;
+    }else{
+        cerr<<"File Operation FAILED!"<<endl;
+    }
+    text.close();
+    return tot;
+}
+
+void Store::setTotalItems(int n){
+    (n > Store::totItmsFrmFile() ) ? 
+        (this->Store::_totalItems == Store::totItmsFrmFile() ) :
+        (this->_totalItems== n);
 }

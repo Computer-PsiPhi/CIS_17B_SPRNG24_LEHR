@@ -63,11 +63,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/17b_personal_project_estore_v2.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/17b_personal_project_estore_v3.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/17b_personal_project_estore_v2.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/17b_personal_project_estore_v3.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/17b_personal_project_estore_v2 ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/17b_personal_project_estore_v3 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/Admin.o: Admin.cpp
 	${MKDIR} -p ${OBJECTDIR}
