@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
     Store store;
     store.loadStore(inventory);
     store.toTextFile(inventory);
+    store.serachStoreRecords();
 
     store.toBinaryFile(products);
     store.fromBinaryFile(products);
@@ -37,7 +38,7 @@ int main(int argc, char** argv) {
     int randomUsers (10);
     store.genRandomData(customers,randomUsers,SIZE);
     
-
+    
 
 
     for(int i =0; i< randomUsers ; i++){

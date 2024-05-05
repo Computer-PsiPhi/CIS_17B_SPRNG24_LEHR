@@ -39,6 +39,7 @@ public:
     void toTextFile(const string &file);
     void toBinaryFile(const string &file)const;
     void fromBinaryFile(const string &file);
+    void serachStoreRecords();
 };
 
 #endif /* STORE_H */
