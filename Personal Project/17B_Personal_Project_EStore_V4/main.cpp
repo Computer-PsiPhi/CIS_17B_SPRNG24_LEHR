@@ -16,6 +16,8 @@ using namespace std;
 #include "Cart.h"
 #include "Admin.h"
 
+#include "Menu.h"
+
 /*
  * 
  */
@@ -25,15 +27,17 @@ int main(int argc, char** argv) {
     const string products = "products.bin";
     // Load store inventory and display
     Store store;
-    store.displayStore();
+  //  Menu menu = Menu(products);
     store.loadStore();
-    store.displayStore();
+
     Admin admin = Admin("Password", "Admin123", true, false);
    
 
     store.toBinaryFile(products);
     store.fromBinaryFile(products);
-     store.serachStoreRecords();
+    store.serachStoreRecords();
+    
+    store.searchBinaryRecords();
 
     const int SIZE {100};
    // User customers[SIZE] = {};
@@ -45,10 +49,10 @@ int main(int argc, char** argv) {
     
 
 
-    for(int i =0; i< randomUsers ; i++){
-     
-      //  customers[i].displayHistory();
-    }
+//    for(int i =0; i< randomUsers ; i++){
+//     
+//        customers[i].displayHistory();
+//    }
  
 
 //    User user;

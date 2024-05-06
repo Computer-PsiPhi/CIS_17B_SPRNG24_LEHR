@@ -40,6 +40,8 @@ private:
 
     bool _isLoggedIn;
     bool _isAdmin;
+    
+    int _MAX =100;
 
 public:
 
@@ -80,6 +82,10 @@ public:
     void setPassWord();
     void setAddress();
 
+    void setMaxUsers(int N){this->_MAX = N;}
+    
+    const int &getMaxUsers(){return this->_MAX;};
+    
     const string & getName() const;
     const string & getUsrName() const;
     const string & getEmail() const;

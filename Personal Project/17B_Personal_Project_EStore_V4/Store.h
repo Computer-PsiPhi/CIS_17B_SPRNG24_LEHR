@@ -42,6 +42,7 @@ public:
     void toBinaryFile(const string &file)const;
     void fromBinaryFile(const string &file);
     void serachStoreRecords();
+    void searchBinaryRecords();
 };
 
 #endif /* STORE_H */

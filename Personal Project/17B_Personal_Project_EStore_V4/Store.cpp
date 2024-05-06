@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -209,14 +210,12 @@ void Store::toBinaryFile(const string &file)const {
 }
 
 // Function definition 
-
 void Store::fromBinaryFile(const string &file) {
     ifstream inBinFile(file, ios::binary);
 
     if (inBinFile.is_open()) {
         unsigned int numProducts;
         inBinFile.read(reinterpret_cast<char*> (&numProducts), sizeof (numProducts));
-       // cout<<"Line 182: "<<numProducts<<endl;
         if (inBinFile.fail()) cerr << "Error in fromBinaryFile() function " << endl;
 
         if (numProducts <= this->Store::totItmsFrmFile()) {
@@ -280,20 +279,12 @@ void Store::serachStoreRecords() {
     long long unsigned cursor = sizeof (numProducts);
     unsigned short count = 0;
     
-    
-
     while (++count <= random) {
         inBinaryFile.seekg(cursor, ios::beg);
         unsigned int len;
         inBinaryFile.read(reinterpret_cast<char*> (&len), sizeof (len));
-        cursor += sizeof (len) + len + sizeof (float) + sizeof (int) + sizeof (int);
-        
+        cursor += sizeof (len) + len + sizeof (float) + sizeof (int) + sizeof (int);   
     }
-    
-
-    cout << "246: " << cursor << endl;
-
-
     unsigned int nameLen = 0;
     string name;
     float price;
@@ -307,14 +298,66 @@ void Store::serachStoreRecords() {
     inBinaryFile.read(reinterpret_cast<char*> (&price), sizeof (price));
     inBinaryFile.read(reinterpret_cast<char*> (&num), sizeof (num));
     inBinaryFile.read(reinterpret_cast<char*> (&quant), sizeof (quant));
-
+  
     cout << "Item number: " << right <<num << endl;
     cout << "Name: "        << right <<name << endl;
     cout << "Price: "       << right <<price << endl;
     cout << "Quantity: "    << right <<quant << endl;
-   
-
 }
+
+void Store::searchBinaryRecords() {
+    ifstream inBinaryFile("products.bin", ios::binary);
+
+    if (!inBinaryFile.is_open()) {
+        cerr << "Error opening binary file in searchStoreRecords()" << endl;
+        return;
+    }
+
+    unsigned int numProducts;
+    inBinaryFile.read(reinterpret_cast<char*>(&numProducts), sizeof(numProducts));
+
+    if (inBinaryFile.fail()) {
+        cout << "Error in reading amount of products" << endl;
+        return;
+    }
+
+    if (numProducts == 0) {
+        cout << "ERROR: no items in binary file" << endl;
+        return;
+    }
+
+    unsigned long long cursor = sizeof(numProducts);
+    cout<<"******************************"<<endl;
+    cout<<"From Binary File (products.bin)"<<endl;
+    for (int i = 0; i < numProducts; ++i) {
+        inBinaryFile.seekg(cursor, ios::beg);
+
+        unsigned int nameLen;
+        string name;
+        float price;
+        int num;
+        int quant;
+
+        inBinaryFile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
+        name.resize(nameLen);
+        inBinaryFile.read(&name[0], nameLen);
+        inBinaryFile.read(reinterpret_cast<char*>(&price), sizeof(price));
+        inBinaryFile.read(reinterpret_cast<char*>(&num), sizeof(num));
+        inBinaryFile.read(reinterpret_cast<char*>(&quant), sizeof(quant));
+
+        cout<< endl;
+        cout<<fixed<<setprecision(2);
+        cout << "Item number: " << right << num << endl;
+        cout << "Name: " << right << name << endl;
+        cout << "Price: " << right <<(float)price << endl;
+        cout << "Quantity: " << right << quant << endl;
+        cout<<"--------------------"<<endl;
+        
+        cursor += sizeof(nameLen) + nameLen + sizeof(float) + sizeof(int) + sizeof(int);
+    }
+    inBinaryFile.close();
+}
+
 
 /*TODO
  *  delete item from Item inventory array and update txt, binary etc everywhere
