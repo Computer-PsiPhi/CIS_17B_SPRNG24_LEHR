@@ -8,12 +8,13 @@
 
 #ifndef ADMIN_H
 #define ADMIN_H
+#include "User.h"
 
-class Admin {
+class Admin : public User{
 private:
-
 public:
     Admin();
+    Admin(const string &name, const string &userName, bool isAdmin, bool isLoggedIn);
     Admin(const Admin& orig);
     virtual ~Admin();
 

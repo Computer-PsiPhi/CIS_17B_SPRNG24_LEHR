@@ -14,6 +14,7 @@ using namespace std;
 #include "User.h"
 #include "Store.h"
 #include "Cart.h"
+#include "Admin.h"
 
 /*
  * 
@@ -25,9 +26,9 @@ int main(int argc, char** argv) {
     // Load store inventory and display
     Store store;
     store.displayStore();
-   store.loadStore();
-   store.displayStore();
-   // store.toTextFile();
+    store.loadStore();
+    store.displayStore();
+    Admin admin = Admin("Password", "Admin123", true, false);
    
 
     store.toBinaryFile(products);

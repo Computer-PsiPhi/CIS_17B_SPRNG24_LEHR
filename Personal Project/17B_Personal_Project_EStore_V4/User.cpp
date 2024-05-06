@@ -25,7 +25,11 @@ User::User():  _name(),
         _isAdmin{false}      
         {  //Default Constructor
         }
-
+        
+        User::User (const string &password, const string &un, bool isAdmin, bool isLoggedIn ) :
+        _passWord{password}, _userName{un}, _isAdmin{isAdmin}, _isLoggedIn{isLoggedIn}
+        {}
+        
 User::User(const string& u, const string& a, int n) : _userName(u), _address(a), _recNum(n), _totalHistory(0) {
 }
 
@@ -384,3 +388,6 @@ cout << left << setw(11) << "Address:" << right << setw(10) << this->_address <<
 cout<<endl;
  }
  
+ /*TODO 
+  *     ADD REMOVE ITEM/S FROM HISTORY
+  */

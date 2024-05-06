@@ -50,6 +50,7 @@ public:
     virtual ~User();
 
     User(const string& u, const string& a, int num);
+    User (const string &n, const string &un, bool isAdmin, bool isLoggedin );
 
     User(const string& name,
             const string& userName,

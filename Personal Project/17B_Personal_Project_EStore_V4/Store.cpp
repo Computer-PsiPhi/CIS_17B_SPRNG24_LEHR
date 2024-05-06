@@ -315,3 +315,7 @@ void Store::serachStoreRecords() {
    
 
 }
+
+/*TODO
+ *  delete item from Item inventory array and update txt, binary etc everywhere
+ */
