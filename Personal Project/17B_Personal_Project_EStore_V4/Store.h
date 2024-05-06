@@ -18,12 +18,14 @@ class Store {
 private:
     Item _inventory[SIZE];
     int _totalItems;
+    const string _file = "inventory.txt";
 
 public:
     Store() : _totalItems{0}, _inventory{} {  };
     Store(const Store& orig);
     virtual ~Store();
 
+    void loadStore() ;
     void loadStore(const string &fileName);
     void displayStore();
     const Item &getItem(int itemNum)const;
@@ -36,7 +38,7 @@ public:
 
     void genRandomData(User *customers, int randomUsers, int SIZE);
 
-    void toTextFile(const string &file);
+    void toTextFile();
     void toBinaryFile(const string &file)const;
     void fromBinaryFile(const string &file);
     void serachStoreRecords();

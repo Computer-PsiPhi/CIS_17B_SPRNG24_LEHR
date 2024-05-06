@@ -20,12 +20,14 @@ using namespace std;
  */
 int main(int argc, char** argv) {
     srand(static_cast<unsigned int> (time(nullptr)));
-    const string inventory = "inventory.txt";
+  
     const string products = "products.bin";
     // Load store inventory and display
     Store store;
-    store.loadStore(inventory);
-    store.toTextFile(inventory);
+    store.displayStore();
+   store.loadStore();
+   store.displayStore();
+   // store.toTextFile();
    
 
     store.toBinaryFile(products);

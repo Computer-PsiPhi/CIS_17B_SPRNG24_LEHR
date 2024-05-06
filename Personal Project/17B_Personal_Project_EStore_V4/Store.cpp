@@ -16,6 +16,44 @@ Store::Store(const Store& orig) {
 
 Store::~Store() {
 }
+void Store::loadStore(){
+ /*1,T-shirt,5.99
+2,Pants,15.99
+3,Dress Shoes,35.99
+4,Black Umbrella,4.99
+5,Denim Jacket,35
+6,Blue shirt,7.99
+7,Shorts,10.99
+8,Sneakers,29.99
+9,Black tie,4.99
+10,Rain Jacket,40
+     */
+    
+    if( Store::totItmsFrmFile() <= 0){
+        cout<<"Inventory Empty!"<<endl;
+    short s = 10;
+    this->_totalItems=s;
+    string names[s]= {"T-Shirt" , "Pants", "Dress Shoes", "Black Umbrella", 
+                    "Denim Jacket", "Blue Shirt", "Shorts", 
+                    "Sneakers", "Black Tie", "Rain Jacket",
+                    };
+                    
+    float prices [s]=  {5.99, 15.99 , 35.99,
+                    4.99 ,35.00, 7.99 ,10.99,
+                    29.99, 4.99 ,40.00};
+           
+        for (int i = 0; i < _totalItems; ++i) {
+           _inventory[i] = Item(i+1, names[i], prices[i]);
+        }
+    Store::toTextFile();
+    }else{
+        cout<<"Going to load..."<<endl;
+        Store::loadStore(this->_file);
+    }
+   
+    
+   
+}
 
 void Store::loadStore(const string &fileName) {
 
@@ -131,11 +169,11 @@ void Store::genRandomData(User *customers, int randomUsers, int SIZE) {
     }
 }
 
-void Store::toTextFile(const string &file) {
+void Store::toTextFile() {
 
     fstream txtOut;
 
-    txtOut.open(file, ios::trunc | ios::out);
+    txtOut.open(this->_file, ios::trunc | ios::out);
 
     if (txtOut.is_open()) {
         txtOut << _totalItems << endl;
@@ -148,7 +186,7 @@ void Store::toTextFile(const string &file) {
         txtOut << "End of File" << endl;
         cout << "Store inventory written to file successfully." << endl;
     } else {
-        cerr << "Unable to open file: " << file << endl;
+        cerr << "Unable to open file: " << this->_file << endl;
     }
     txtOut.close();
 }
