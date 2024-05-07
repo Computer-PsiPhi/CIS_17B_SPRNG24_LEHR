@@ -143,9 +143,9 @@ void Store::genRandomData(User *customers, int randomUsers, int SIZE) {
         int zip = rand() % 9999 * 5 + 9999;
 
         string name = "Customer",
-                username = "!UserName",
+                username = "Username!",
                 email = "email@gmail.com",
-                password = "PassWord_",
+                password = "Password",
                 address = to_string(num) += " A Street Somewhere ";
         address.insert(address.size(), to_string(zip));
         address += ", USA";
@@ -153,8 +153,8 @@ void Store::genRandomData(User *customers, int randomUsers, int SIZE) {
 
         name.append(to_string(i + 1));
         username.append(to_string(i + 1));
-        email.insert(5, to_string(i)),
-                password.append(to_string(i));
+        email.insert(5, to_string(i+1)),
+                password.append(to_string(i+1));
 
         customers[i] = User(
                 name,

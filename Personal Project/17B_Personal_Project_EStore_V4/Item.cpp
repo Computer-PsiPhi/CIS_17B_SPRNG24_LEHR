@@ -2,7 +2,6 @@
 /* 
  * File:   Item.cpp
  * Author: Noel Perez
- * 
  * Created on March 23, 2024, 10:52 PM
  */
 #include <iostream>
@@ -31,7 +30,6 @@ void Item::serialize(ofstream& ofs) const {
         ofs.write(reinterpret_cast<const char*>(&_price), sizeof(_price)); // Write price
         ofs.write(reinterpret_cast<const char*>(&_itemNum), sizeof(_itemNum)); // Write item number
         ofs.write(reinterpret_cast<const char*>(&_quantity), sizeof(_quantity)); // Write quantity
-        
     }
 
 // Item deserialize function definition 
@@ -42,6 +40,5 @@ void Item::serialize(ofstream& ofs) const {
       ifs.read(&_name[0], nameLength);
       ifs.read(reinterpret_cast<char*>(&_price), sizeof(_price));
       ifs.read(reinterpret_cast<char*>(&_itemNum), sizeof(_itemNum));
-      ifs.read(reinterpret_cast<char*>(&_quantity), sizeof(_quantity));    
-      
+      ifs.read(reinterpret_cast<char*>(&_quantity), sizeof(_quantity));     
 }

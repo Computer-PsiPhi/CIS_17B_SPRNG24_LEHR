@@ -11,11 +11,15 @@
 #include "Admin.h"
 #include "Store.h"
 #include "User.h"
+
+
 class Menu {
 private:
     Store _store;
     User *_customers;
     Admin _admin;
+    int _numCusts;
+    int _randomUsers;
     
 public:
     Menu();
@@ -27,6 +31,20 @@ public:
 void clearScreen();
 void clearScreenChoice();
 
+void setNumCusts(int n){this->_numCusts = n;};
+int getNumCusts()const {return this->_numCusts;};
+
+void startMenu();
+void userLogin();
+void userSignUp();
+void adminLogin();
+void adminMenu();
+void userMenu();
+void runMenu();
+
+User *findUser(const string &userName, const string &password);
+
+void signUp() ;
 };
 
 #endif /* MENU_H */

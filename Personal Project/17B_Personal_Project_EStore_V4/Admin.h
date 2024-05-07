@@ -14,6 +14,7 @@ class Admin : public User{
 private:
 public:
     Admin();
+    Admin(const string &userName, const string &password);
     Admin(const string &name, const string &userName, bool isAdmin, bool isLoggedIn);
     Admin(const Admin& orig);
     virtual ~Admin();

@@ -42,7 +42,7 @@ private:
     bool _isAdmin;
     
     int _MAX =100;
-
+    static int _users;
 public:
 
     User();
@@ -110,7 +110,13 @@ public:
     bool getadminStatus();
     
     void displayContactInfo();
-};
+    
+    void changeUserInfo(User* usersArray, int size, int index) ;
+    
+  static void increaseUsers(){ _users++; };
+  static void decreaseUsers(){ _users++; };
+  
+  static int getNumUsers(){ return _users;  }};
 
 #endif /* USER_H */
 
