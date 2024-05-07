@@ -93,7 +93,8 @@ void Menu::adminLogin() {
 }
 
 void Menu::adminMenu() {
-
+    cout<<"Administrator Menu"<<endl;
+    cout<<"Add Items to Store Inventory "<<endl;
 }
 
 void Menu::userMenu() {

@@ -45,9 +45,7 @@ int main(int argc, char** argv) {
 //    int randomUsers (10);
   //  store.genRandomData(customers,randomUsers,SIZE);
     
-    
-
-
+   
 //    for(int i =0; i< randomUsers ; i++){
 //     
 //        customers[i].displayHistory();
