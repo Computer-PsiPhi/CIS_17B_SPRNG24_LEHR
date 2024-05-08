@@ -247,9 +247,17 @@ _customers[userIndex].displayHistory();
                      _customers[userIndex];
                     break;
                 case 5: // Checkout
+                      cout<<"BEFORE the purchase "<<endl;
+                    _customers[userIndex].displayHistory();
+                    cout<<"&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+                    
+                     _customers[userIndex].addToHistory();
                     total =  _customers[userIndex].getCart().checkOut();
                     cout << "Total amount: $" << total << endl;
                     cout << "Thank you for your purchase!" << endl;
+                    cout<<"^^^^^^^^^^^^^"<<endl;
+                    cout<<"After the purchase "<<endl;
+                    _customers[userIndex].displayHistory();
                     break;
                 case 6: // Exit
                     cout << "Exiting program." << endl;

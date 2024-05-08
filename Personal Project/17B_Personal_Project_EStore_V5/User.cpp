@@ -457,7 +457,15 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
     }
 }
 
-
+// TODO : UNFINISHED
+  void User::addToHistory(){
+       int itemCount = this->User::_shoppingCart.getCount();
+       cout<<"Number of Items in Cart to be added to shopping History: "<<itemCount<<endl;
+      for (int i =0; i< itemCount; i++){
+           this->_shoppingHistory[_totalHistory ] = _shoppingCart.getItem(i);
+           _totalHistory++;
+      } 
+  }
 
 /*TODO 
  *     ADD REMOVE ITEM/S FROM HISTORY

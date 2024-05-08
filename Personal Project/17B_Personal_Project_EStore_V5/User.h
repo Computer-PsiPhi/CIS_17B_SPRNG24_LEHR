@@ -117,8 +117,12 @@ public:
   static void increaseUsers(){ _users++; };
   static void decreaseUsers(){ _users++; };
   
-  static int getNumUsers(){ return _users;  }};
+  static int getNumUsers(){ return _users;  };
   
+  void addToHistory();
 
+  
+  
+};
 #endif /* USER_H */
 

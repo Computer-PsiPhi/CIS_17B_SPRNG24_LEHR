@@ -43,6 +43,8 @@ public:
     void fromBinaryFile(const string &file);
     void serachStoreRecords();
     void searchBinaryRecords();
+    
+    
 };
 
 #endif /* STORE_H */
