@@ -15,7 +15,11 @@ Admin::Admin() {
   {
   }
 
-
+   Admin::Admin(const string &password, const string &userName, bool isAdmin, bool isLoggedIn, int recNum ):
+   User (password, userName, isAdmin, isLoggedIn) {
+       this->Admin::setRecNum(recNum);
+ }
+   
   
 Admin::Admin(const Admin& orig) {
 }

@@ -1,4 +1,3 @@
-
 /* 
  * File:   User.h
  * Author: Noel Perez
@@ -69,7 +68,8 @@ public:
          bool isAdmin,
          int recNum);
          
-
+     int getTotItemInHist()const{return this->User::_totalHistory; };
+ const Item &getShopHist(int index)const{ return this->User::_shoppingHistory[index]; };
     bool isValName(string str, int minLen = 5);
     bool isValUsrName(string str, int minLen = 5);
     bool isValEmail(string str, int minLen = 5);
@@ -81,6 +81,7 @@ public:
     void setEmail();
     void setPassWord();
     void setAddress();
+    void setRecNum(int r); 
 
     void setMaxUsers(int N){this->_MAX = N;}
     
@@ -117,6 +118,7 @@ public:
   static void decreaseUsers(){ _users++; };
   
   static int getNumUsers(){ return _users;  }};
+  
 
 #endif /* USER_H */
 

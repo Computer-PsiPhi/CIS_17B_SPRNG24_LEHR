@@ -22,7 +22,7 @@ Menu::Menu(User *customers, int n) {
 }
 
 Menu::Menu(const string &binaryFile) {
-    this->_admin = Admin("Password", "Admin123", true, false);
+    this->_admin = Admin("Password", "Admin123", true, false, -1);
     this->_numCusts = 100;
     this->_randomUsers = 10;
 
@@ -74,6 +74,7 @@ void Menu::clearScreenChoice() {
 };
 
 void Menu::startMenu() {
+    cout<<endl;
     cout << "\nMenu Options:" << endl;
     cout << "1. Log in" << endl;
     cout << "2. Sign up" << endl;
@@ -93,8 +94,11 @@ void Menu::adminLogin() {
 }
 
 void Menu::adminMenu() {
-    cout<<"Administrator Menu"<<endl;
-    cout<<"Add Items to Store Inventory "<<endl;
+    cout<<"\nAdministrator Menu"<<endl;
+    cout<<"1. Add Items to Store Inventory "<<endl;
+    cout<<"2. Remove Items from Store Inventory "<<endl;
+    cout<<"3. Modify User Information & Records "<<endl;
+    cout<<"4. Add Items to Store Inventory "<<endl;
 }
 
 void Menu::userMenu() {
@@ -150,7 +154,7 @@ void Menu::runMenu() {
                 getline(cin, password);
 
                 for (int i = 0; i < currentUsers; i++) {
-                    cout << "145 status: " << _customers[i].getlogStatus();
+               //     cout << "145 status: " << _customers[i].getlogStatus(); // debug
                     if (_customers[i].verifyCred(password, username)) {
 
                         userIndex = i;
@@ -195,25 +199,22 @@ void Menu::runMenu() {
 
         
         cout << _customers[userIndex].getUsrName() << " is logged in" << endl;
-
-
-  
+_customers[userIndex].displayHistory();
+        string s;
+        for(int i =0; i< _customers[userIndex].getTotItemInHist(); i++){
+           // _customers[i].getShopHist(i).getName();
+            s = _customers[userIndex].getShopHist(i).getName();
+            cout<<"s is : "<<s<<endl;
+        }
         int ch;
-        double total = 0.0;
+        float total = 0.0;
         bool found = false;
         do {
             Menu::userMenu();
             cin >> ch;
             cin.ignore();
-/*
- *    
- 
-    cout << "3. View Cart" << endl;
-    cout << "4. Remove Item from Cart "<<endl;
-    cout << "5. Checkout" << endl;
-    cout << "6. Exit" << endl;
-    
- */
+
+            
             switch (ch) {
                 case 1: // Display Store Inventory
                     _store.displayStore();
@@ -243,6 +244,7 @@ void Menu::runMenu() {
                     break;
                 case 4: // Remove Item
                      _customers[userIndex].getCart().removeItem();
+                     _customers[userIndex];
                     break;
                 case 5: // Checkout
                     total =  _customers[userIndex].getCart().checkOut();
@@ -272,9 +274,6 @@ void Menu::runMenu() {
     }
 
 
-
-
-
 }
 while (choice != 3);
 
@@ -293,6 +292,8 @@ void Menu::signUp() {
     this->_customers[ currentCusts ].setPassWord();
     this->_customers[ currentCusts ].setEmail();
     this->_customers[ currentCusts ].setAddress();
+    cout<<"Setting to record number: "<<User::getNumUsers()<<endl;
+    this->_customers[ currentCusts ].setRecNum(currentCusts);
 
     cout << "Signup successful!" << endl;
     this->_customers[ currentCusts ].displayContactInfo();

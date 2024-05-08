@@ -275,6 +275,14 @@ void User::setAddress() {
     this->User::_address = addrss;
 }
 
+   void User::setRecNum(int r) {
+       if( r > this->User::_MAX) {
+           cerr<<"ERROR!"<<endl;
+                   return; 
+       }
+       this->User::_recNum = r ;
+   };
+
 const string & User::getName() const {
     return this->_name;
 }
@@ -352,6 +360,7 @@ void User::displayHistory() {
     cout << "**********************" << endl;
     User::displayContactInfo();
     cout << "Shopping History " << endl;
+    cout << "Total items in history: " << this->User::_totalHistory <<endl;
     cout << "======================" << endl;
     for (short i = 0; i < this->_totalHistory; i++) {
         this->_shoppingHistory[i].display();
@@ -383,13 +392,14 @@ bool User::getadminStatus() {
 }
 
 void User::displayContactInfo() {
-    cout << "Personal Information: " << endl;
+    cout << "\nPersonal Information: " << endl;
     cout << "======================" << endl;
     cout << left << setw(11) << "Name:" << right << setw(10) << this->_name << endl;
     cout << left << setw(11) << "Username:" << right << setw(10) << this->_userName << endl;
     cout << left << setw(11) << "Password:" << right << setw(10) << this->_passWord << endl;
     cout << left << setw(11) << "Email:" << right << setw(10) << this->_email << endl;
     cout << left << setw(11) << "Address:" << right << setw(10) << this->_address << endl;
+      cout << left << setw(11) << "Record number:" << right << setw(10) << this->_recNum << endl;
     cout << endl;
 }
 
@@ -446,6 +456,8 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
         cerr << "Error: Invalid index!" << endl;
     }
 }
+
+
 
 /*TODO 
  *     ADD REMOVE ITEM/S FROM HISTORY

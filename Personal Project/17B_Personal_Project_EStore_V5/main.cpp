@@ -57,3 +57,5 @@ int main(int argc, char** argv) {
     return 0;
 }
 
+/* TODO Once user checks out update shopping history
+ */
