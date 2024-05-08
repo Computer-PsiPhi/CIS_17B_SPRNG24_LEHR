@@ -103,8 +103,9 @@ void Menu::userMenu() {
     cout << "1. Display Store Inventory" << endl;
     cout << "2. Add Item to Cart" << endl;
     cout << "3. View Cart" << endl;
-    cout << "4. Checkout" << endl;
-    cout << "5. Exit" << endl;
+    cout << "4. Remove Item from Cart "<<endl;
+    cout << "5. Checkout" << endl;
+    cout << "6. Exit" << endl;
     cout << "Enter your choice: ";
 }
 
@@ -196,16 +197,24 @@ void Menu::runMenu() {
         cout << _customers[userIndex].getUsrName() << " is logged in" << endl;
 
 
-        User user;
-        int choice;
+  
+        int ch;
         double total = 0.0;
         bool found = false;
         do {
             Menu::userMenu();
-            cin >> choice;
+            cin >> ch;
             cin.ignore();
-
-            switch (choice) {
+/*
+ *    
+ 
+    cout << "3. View Cart" << endl;
+    cout << "4. Remove Item from Cart "<<endl;
+    cout << "5. Checkout" << endl;
+    cout << "6. Exit" << endl;
+    
+ */
+            switch (ch) {
                 case 1: // Display Store Inventory
                     _store.displayStore();
                     break;
@@ -218,7 +227,7 @@ void Menu::runMenu() {
                     // Find item in store inventory
                     for (int i = 0; i < _store.getTotalItems(); ++i) {
                         if (_store.getItem(i).getItemNum() == itemNum) {
-                            user.getCart().addItem(_store.getItem(i));
+                            _customers[userIndex].getCart().addItem(_store.getItem(i));
                             cout << "Item added to cart." << endl;
                             found = true;
                             break;
@@ -230,32 +239,36 @@ void Menu::runMenu() {
                     break;
                 case 3: // View Cart
 
-                    user.getCart().showCart();
+                     _customers[userIndex].getCart().showCart();
                     break;
-                case 4: // Checkout
-                    total = user.getCart().checkOut();
+                case 4: // Remove Item
+                    
+                    break;
+                case 5: // Checkout
+                    total =  _customers[userIndex].getCart().checkOut();
                     cout << "Total amount: $" << total << endl;
                     cout << "Thank you for your purchase!" << endl;
                     break;
-                case 5: // Exit
+                case 6: // Exit
                     cout << "Exiting program." << endl;
                     break;
                 default:
                     cout << "Invalid choice. Please try again." << endl;
             }
-        } while (choice != 5);
+        } while (ch != 6);
   }
     
 
     if (_admin.getadminStatus() && _admin.getlogStatus()) {
         cout << "ADMIN LOGGED IN " << endl;
        
+         int c;
         do{
-              int choice;
+             
             Menu::adminMenu();
             
             
-        }while(choice != 5 );
+        }while(c != 5 );
     }
 
 
