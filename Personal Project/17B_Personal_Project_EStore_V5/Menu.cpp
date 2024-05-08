@@ -242,7 +242,7 @@ void Menu::runMenu() {
                      _customers[userIndex].getCart().showCart();
                     break;
                 case 4: // Remove Item
-                    
+                     _customers[userIndex].getCart().removeItem();
                     break;
                 case 5: // Checkout
                     total =  _customers[userIndex].getCart().checkOut();

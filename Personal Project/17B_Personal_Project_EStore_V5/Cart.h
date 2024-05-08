@@ -9,6 +9,8 @@
 #define CART_H
 
 #include "Item.h"
+#include <algorithm> 
+#include <cctype> 
 
 class Cart {
 private:
@@ -26,7 +28,7 @@ public:
     const Item &getItem(int index)const{ return this->_items[index]; };
     
     void addItem(const Item &item);
-    void removeItem(int index);
+   void removeItem() ;
     void showCart();
     float checkOut();
     

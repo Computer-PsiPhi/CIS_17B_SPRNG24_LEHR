@@ -28,26 +28,67 @@ void Cart::addItem(const Item &item) {
     }
 }
 
-void Cart::removeItem(int index) {
+void Cart::removeItem() {
+    if (_itemCount == 0) {
+        cout << "Cart is empty. Nothing to remove." << endl;
+        return;
+    }
+
     bool isGood = false;
+    char confirm;
+
     while (!isGood) {
         try {
-            if (index < 0 || index > this->_itemCount) {
-                throw out_of_range("Invalid index!");
+            string itemName;
+            int itemNum;
+
+            cout << "Enter the name of the item you want to remove: ";
+        
+            getline(cin, itemName);
+
+            cout << "Enter the item number of the item you want to remove: ";
+            cin >> itemNum;
+            cin.ignore();
+            // Convert both item name and entered name to lowercase 
+            transform(itemName.begin(), itemName.end(), itemName.begin(), ::tolower);
+
+            bool itemFound = false;
+
+            for (int i = 0; i < this->_itemCount; i++) {
+                string currentItem = this->_items[i].getName();
+                transform(currentItem.begin(), currentItem.end(), currentItem.begin(), ::tolower);
+
+                if (this->_items[i].getItemNum() == itemNum && currentItem == itemName) {
+                    itemFound = true;
+                    cout << "Are you sure you want to remove " << this->_items[i].getName()
+                         << " (Item Number: " << itemNum << ")? (y/n): ";
+                    cin >> confirm;
+
+                    if (confirm == 'y' || confirm == 'Y') {
+                        for (int j = i; j < this->_itemCount - 1; j++) {
+                            this->_items[j] = this->_items[j + 1];
+                        }
+                        this->_itemCount--;
+                        cout << this->_items[i].getName() << " removed from the cart." << endl;
+                        isGood = true;
+                        break;
+                    } else {
+                        cout << "Removal canceled." << endl;
+                        isGood = true;
+                        break;
+                    }
+                }
             }
 
-            for (short int i = index; i < this->_itemCount - 1; i++) {
-                this->_items[i] = this->_items[i + 1];
+            if (!itemFound) {
+                throw runtime_error("Item not found in cart.");
             }
-            this->_itemCount--;
-            isGood = true; // Set to true to exit the loop if the index is valid
         } catch (const exception& e) {
             cout << e.what() << endl;
-            cout << "Enter a valid index: ";
-            cin >> index;
         }
     }
 }
+
 
 void Cart::showCart() {
     cout << "Cart status: " << endl;
