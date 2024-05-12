@@ -906,6 +906,14 @@ void User::deserializeUser(ifstream& binInFile) {
     unsigned int addressLen;
     binInFile.read(reinterpret_cast<char*> (&addressLen), sizeof (addressLen));
     
+    /*
+     * 
+    binOutFile.write(reinterpret_cast<const char*> (&nameLen), sizeof (nameLen));
+    binOutFile.write(reinterpret_cast<const char*> (&userNameLen), sizeof (userNameLen));
+    binOutFile.write(reinterpret_cast<const char*> (&emailLen), sizeof (emailLen));
+    binOutFile.write(reinterpret_cast<const char*> (&passWordLen), sizeof (passWordLen));
+    binOutFile.write(reinterpret_cast<const char*> (&addressLen), sizeof (addressLen));
+     */
     
     string name(nameLen, '\0');
     binInFile.read(reinterpret_cast<char*> (&name[0]), nameLen);
@@ -935,7 +943,10 @@ void User::deserializeUser(ifstream& binInFile) {
     binInFile.read(reinterpret_cast<char*> (&_recNum), sizeof (_recNum));
     binInFile.read(reinterpret_cast<char*> (&_totalHistory), sizeof (_totalHistory));
 
-
+//            for (int i = 0; i < User::_totalHistory; ++i) {
+//                _shoppingHistory[i].deserialize(binInFile);
+//               // _shoppingHistory[i].display();
+//            }
     
     cout<<"Deserializing Finished"<<endl;
 }
