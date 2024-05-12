@@ -38,9 +38,9 @@ public:
 
     void genRandomData(User *customers, int randomUsers, int SIZE);
 
-    void toTextFile();
-    void toBinaryFile(const string &file)const;
-    void fromBinaryFile(const string &file);
+    void invntryToTextFile();
+    void invntryToBinaryFile(const string &file)const;
+    void invntryFromBinaryFile(const string &file);
     void serachStoreRecords();
     void searchBinaryRecords();
     

@@ -6,6 +6,7 @@
  * Created on March 23, 2024, 10:54 PM
  */
 #include <iostream>
+
 #include "Menu.h"
 using namespace std;
 
@@ -29,8 +30,8 @@ Menu::Menu(const string &binaryFile) {
     this->_customers = new User[ this->_numCusts ];
 
     this->_store.loadStore();
-    _store.toBinaryFile(binaryFile);
-    _store.fromBinaryFile(binaryFile);
+    _store.invntryToBinaryFile(binaryFile);
+    _store.invntryFromBinaryFile(binaryFile);
     _store.genRandomData(_customers, _randomUsers, _numCusts);
 
 
@@ -119,6 +120,7 @@ User Menu::*findUser(const string &userName, const string &password) {
 }
 
 void Menu::runMenu() {
+    const string users ="users.bin";
     cout << boolalpha;
     int currentUsers = User::getNumUsers();
     int choice(0);
@@ -129,7 +131,15 @@ void Menu::runMenu() {
 
     User *u = new User;
 
+for (int i=0; i< currentUsers; i++ ){
+      //  _customers[i].displayHistory();
+}
 
+for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser(users);
+    
+    
+for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(users);
+    
     do {
         currentUsers = User::getNumUsers();
         Menu::startMenu();
@@ -137,7 +147,6 @@ void Menu::runMenu() {
         cin >> choice;
 
         cin.ignore();
-
 
         switch (choice) {
             case 1:
@@ -247,6 +256,10 @@ _customers[userIndex].displayHistory();
                      _customers[userIndex];
                     break;
                 case 5: // Checkout
+                        for(int i =0; i< currentUsers ; i++){
+                            cout<<"Customer "<<i+1<<endl;
+                _customers[i].displayHistory();
+                  }
                       cout<<"BEFORE the purchase "<<endl;
                     _customers[userIndex].displayHistory();
                     cout<<"&&&&&&&&&&&&&&&&&&&&&&"<<endl;

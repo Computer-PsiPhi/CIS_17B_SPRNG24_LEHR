@@ -20,15 +20,15 @@ class Store;
 class User {
 private:
     string _name;
-    unsigned int _nameLen;
+ 
     string _userName;
-    unsigned int _usrnameLen;
+    
     string _email;
-    unsigned int _emailLen;
+    
     string _passWord;
-    unsigned int _pswrdLen;
+    
     string _address;
-    unsigned int _adrsLen;
+    
 
     int _cartSize;
 
@@ -120,9 +120,10 @@ public:
   static int getNumUsers(){ return _users;  };
   
   void addToHistory();
-
   
-  
+  void serializeUser( const string &file);
+  void deserializeUser( const string &file);
+      
 };
 #endif /* USER_H */
 

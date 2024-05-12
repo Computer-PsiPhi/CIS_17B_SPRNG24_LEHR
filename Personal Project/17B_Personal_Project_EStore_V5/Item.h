@@ -31,7 +31,7 @@ public:
     void setItemNum(const int &num)   { this->_itemNum = num; };
     void setName(const string & name) {this->_name = name; };
     void setPrice(const float &price) {this->_price = price; };
-    void setquant(const int &quant)   {this->_quantity = quant; } 
+    void setQuant(const int &quant)   {this->_quantity = quant; } 
     
     int getItemNum()const {return this->_itemNum; }
     string getName()const {return this->_name; }

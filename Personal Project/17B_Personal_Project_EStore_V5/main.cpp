@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
 
 //    const int SIZE {100};
    // User customers[SIZE] = {};
-//    User *customers = new User[SIZE];
+
 //    
 //    int randomUsers (10);
   //  store.genRandomData(customers,randomUsers,SIZE);

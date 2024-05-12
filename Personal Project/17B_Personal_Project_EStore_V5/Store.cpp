@@ -46,13 +46,11 @@ void Store::loadStore(){
         for (int i = 0; i < _totalItems; ++i) {
            _inventory[i] = Item(i+1, names[i], prices[i]);
         }
-    Store::toTextFile();
+    Store::invntryToTextFile();
     }else{
         cout<<"Going to load..."<<endl;
         Store::loadStore(this->_file);
     }
-   
-    
    
 }
 
@@ -170,7 +168,7 @@ void Store::genRandomData(User *customers, int randomUsers, int SIZE) {
     }
 }
 
-void Store::toTextFile() {
+void Store::invntryToTextFile() {
 
     fstream txtOut;
 
@@ -192,7 +190,7 @@ void Store::toTextFile() {
     txtOut.close();
 }
 
-void Store::toBinaryFile(const string &file)const {
+void Store::invntryToBinaryFile(const string& file) const {
     ofstream outFile(file, ios::binary);
 
     if (outFile.is_open()) {
@@ -210,7 +208,7 @@ void Store::toBinaryFile(const string &file)const {
 }
 
 // Function definition 
-void Store::fromBinaryFile(const string &file) {
+void Store::invntryFromBinaryFile(const string& file) {
     ifstream inBinFile(file, ios::binary);
 
     if (inBinFile.is_open()) {
