@@ -535,92 +535,117 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
   }
   
   // Deserialize User function 
+  void User::deserializeUser( const string &file) {
+       ifstream binInFile(file, ios::binary);
+
+        if (!binInFile) {
+            cerr << "Error opening file for reading.\n";
+            return;
+        }
+      
+          unsigned int nameLen, usrNameLen, emailLen, pwLen, addressLen;
+        binInFile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
+        binInFile.read(reinterpret_cast<char*>(&usrNameLen), sizeof(usrNameLen));
+        binInFile.read(reinterpret_cast<char*>(&emailLen), sizeof(emailLen));
+        binInFile.read(reinterpret_cast<char*>(&pwLen), sizeof(pwLen));
+        binInFile.read(reinterpret_cast<char*>(&addressLen), sizeof(addressLen));
+
+        _name.resize(nameLen);
+        _userName.resize(usrNameLen);
+        _email.resize(emailLen);
+        _passWord.resize(pwLen);
+        _address.resize(addressLen);
+        
+        cout<<"558 "<<_name<<" "<<_address<<endl; // debugg
+
+        binInFile.read(&_name[0], nameLen);
+        binInFile.read(&_userName[0], usrNameLen);
+        binInFile.read(&_email[0], emailLen);
+        binInFile.read(&_passWord[0], pwLen);
+        binInFile.read(&_address[0], addressLen);
+
+        for (int i = 0; i < _totalHistory; ++i) {
+            unsigned int itemNameLen;
+            binInFile.read(reinterpret_cast<char*>(&itemNameLen), sizeof(itemNameLen));
+
+            string itemName(itemNameLen, '\0');
+            binInFile.read(&itemName[0], itemNameLen);
+            cout<<"573 : "<<itemName<<endl;
+            int itemN, quant;
+            float price;
+
+            binInFile.read(reinterpret_cast<char*>(&itemN), sizeof(itemN));
+            binInFile.read(reinterpret_cast<char*>(&price), sizeof(price));
+            binInFile.read(reinterpret_cast<char*>(&quant), sizeof(quant));
+
+            _shoppingHistory[i].setName(itemName);
+            _shoppingHistory[i].setItemNum(itemN);
+            _shoppingHistory[i].setPrice(price);
+            _shoppingHistory[i].setQuant(quant);
+        }
+
+        binInFile.read(reinterpret_cast<char*>(&_recNum), sizeof(_recNum));
+        binInFile.read(reinterpret_cast<char*>(&_totalHistory), sizeof(_totalHistory));
+
+        binInFile.close();
+   }
+  
   void User::deserializeUser(const string &file) {
     ifstream binInFile(file, ios::binary);
-    if (!binInFile.is_open()) {
-        cerr << "Error opening file for deserialization." << endl;
+    if (!binInFile) {
+        cerr << "Error opening file for reading.\n";
         return;
     }
 
     unsigned int nameLen, usrNameLen, emailLen, pwLen, addressLen;
-    binInFile.read(reinterpret_cast<char *>(&nameLen), sizeof(nameLen));
-    binInFile.read(reinterpret_cast<char *>(&usrNameLen), sizeof(usrNameLen));
-    binInFile.read(reinterpret_cast<char *>(&emailLen), sizeof(emailLen));
-    binInFile.read(reinterpret_cast<char *>(&pwLen), sizeof(pwLen));
-    binInFile.read(reinterpret_cast<char *>(&addressLen), sizeof(addressLen));
+    binInFile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
+    binInFile.read(reinterpret_cast<char*>(&usrNameLen), sizeof(usrNameLen));
+    binInFile.read(reinterpret_cast<char*>(&emailLen), sizeof(emailLen));
+    binInFile.read(reinterpret_cast<char*>(&pwLen), sizeof(pwLen));
+    binInFile.read(reinterpret_cast<char*>(&addressLen), sizeof(addressLen));
 
-    if (!binInFile.good()) {
-        cerr << "Error reading data lengths." << endl;
-        binInFile.close();
-        return;
+    _name.resize(nameLen + 1);
+    _userName.resize(usrNameLen + 1);
+    _email.resize(emailLen + 1);
+    _passWord.resize(pwLen + 1);
+    _address.resize(addressLen + 1);
+
+    binInFile.read(&_name[0], nameLen);
+    binInFile.read(&_userName[0], usrNameLen);
+    binInFile.read(&_email[0], emailLen);
+    binInFile.read(&_passWord[0], pwLen);
+    binInFile.read(&_address[0], addressLen);
+
+    _name[nameLen] = '\0';
+    _userName[usrNameLen] = '\0';
+    _email[emailLen] = '\0';
+    _passWord[pwLen] = '\0';
+    _address[addressLen] = '\0';
+
+    for (int i = 0; i < _totalHistory; ++i) {
+        unsigned int itemNameLen;
+        binInFile.read(reinterpret_cast<char*>(&itemNameLen), sizeof(itemNameLen));
+
+        string itemName;
+        itemName.resize(itemNameLen + 1); // Resize to include null terminator
+        binInFile.read(&itemName[0], itemNameLen);
+        itemName[itemNameLen] = '\0'; // Null terminate the string
+
+        int itemN, quant;
+        float price;
+
+        binInFile.read(reinterpret_cast<char*>(&itemN), sizeof(itemN));
+        binInFile.read(reinterpret_cast<char*>(&price), sizeof(price));
+        binInFile.read(reinterpret_cast<char*>(&quant), sizeof(quant));
+
+        _shoppingHistory[i].setName(itemName);
+        _shoppingHistory[i].setItemNum(itemN);
+        _shoppingHistory[i].setPrice(price);
+        _shoppingHistory[i].setQuant(quant);
     }
 
-    char *nameBuffer = new char[nameLen + 1];
-    char *userNameBuffer = new char[usrNameLen + 1];
-    char *emailBuffer = new char[emailLen + 1];
-    char *pwBuffer = new char[pwLen + 1];
-    char *addressBuffer = new char[addressLen + 1];
-
-    binInFile.read(nameBuffer, nameLen);
-    binInFile.read(userNameBuffer, usrNameLen);
-    binInFile.read(emailBuffer, emailLen);
-    binInFile.read(pwBuffer, pwLen);
-    binInFile.read(addressBuffer, addressLen);
-
-    if (!binInFile.good()) {
-        cerr << "Error reading string data." << endl;
-        delete[] nameBuffer;
-        delete[] userNameBuffer;
-        delete[] emailBuffer;
-        delete[] pwBuffer;
-        delete[] addressBuffer;
-        binInFile.close();
-        return;
-    }
-
-    nameBuffer[nameLen] = '\0';
-    userNameBuffer[usrNameLen] = '\0';
-    emailBuffer[emailLen] = '\0';
-    pwBuffer[pwLen] = '\0';
-    addressBuffer[addressLen] = '\0';
-
-    _name = string(nameBuffer);
-    _userName = string(userNameBuffer);
-    _email = string(emailBuffer);
-    _passWord = string(pwBuffer);
-    _address = string(addressBuffer);
-
-    delete[] nameBuffer;
-    delete[] userNameBuffer;
-    delete[] emailBuffer;
-    delete[] pwBuffer;
-    delete[] addressBuffer;
-
-    string itemName;
-    unsigned int itemNameLen;
-    for (int i = 0; i < _totalHistory; i++) {
-        binInFile.read(reinterpret_cast<char *>(&itemNameLen), sizeof(itemNameLen));
-        char *itemNameBuffer = new char[itemNameLen + 1];
-        binInFile.read(itemNameBuffer, itemNameLen);
-        itemNameBuffer[itemNameLen] = '\0';
-        itemName = string(itemNameBuffer);
-        delete[] itemNameBuffer;
-        // You can use itemName here as needed
-    }
-
-    int itemN, quant;
-    float price;
-    for (int i = 0; i < _totalHistory; i++) {
-        binInFile.read(reinterpret_cast<char *>(&itemN), sizeof(itemN));
-        binInFile.read(reinterpret_cast<char *>(&price), sizeof(price));
-        binInFile.read(reinterpret_cast<char *>(&quant), sizeof(quant));
-        // You can use itemN, price, and quant here as needed
-    }
-
-    binInFile.read(reinterpret_cast<char *>(&_recNum), sizeof(_recNum));
-    binInFile.read(reinterpret_cast<char *>(&_totalHistory), sizeof(_totalHistory));
+    binInFile.read(reinterpret_cast<char*>(&_recNum), sizeof(_recNum));
+    binInFile.read(reinterpret_cast<char*>(&_totalHistory), sizeof(_totalHistory));
 
     binInFile.close();
 }
-
-  
