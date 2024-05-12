@@ -129,7 +129,7 @@ void Menu::runMenu() {
     int userIndex = 0;
     Admin admin;
 
-    User *u = new User;
+
 
 for (int i=0; i< currentUsers; i++ ){
       //  _customers[i].displayHistory();
@@ -139,6 +139,7 @@ for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser(users);
     
     
 for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(users);
+    
     
     do {
         currentUsers = User::getNumUsers();
