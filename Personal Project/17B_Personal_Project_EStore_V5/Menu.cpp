@@ -149,7 +149,11 @@ if (!outFile.is_open() || !inFile.is_open() ) {
 
 for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
     
- //for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(inFile);
+ for (int i=0; i< currentUsers; i++ ) {
+     cout<<"153"<<endl;
+     _customers[i].deserializeUser(inFile);
+     cout<<"after on 155"<<endl;
+ }
     
     do {
         currentUsers = User::getNumUsers();
@@ -285,6 +289,10 @@ _customers[userIndex].displayHistory();
                     break;
                 case 6: // Exit
                     cout << "Exiting program." << endl;
+                    cout<<"Was logged in: "<<_customers[userIndex].getlogStatus()<<endl;
+                    _customers[userIndex].setLogStatus(false);
+                     cout<<"Now logged in: "<<_customers[userIndex].getlogStatus()<<endl;
+                    
                     break;
                 default:
                     cout << "Invalid choice. Please try again." << endl;
@@ -316,6 +324,8 @@ cout<<"END!!!"<<endl;
 }
 
 void Menu::signUp() {
+    cout<<endl;
+    cout<<endl;
     User::increaseUsers();
     int currentCusts = User::getNumUsers() - 1;
 

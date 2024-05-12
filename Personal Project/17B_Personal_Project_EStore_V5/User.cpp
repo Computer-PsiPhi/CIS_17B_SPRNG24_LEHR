@@ -393,12 +393,12 @@ bool User::getadminStatus() {
 void User::displayContactInfo() {
     cout << "\nPersonal Information: " << endl;
     cout << "======================" << endl;
-    cout << left << setw(11) << "Name:" << right << setw(10) << this->_name << endl;
-    cout << left << setw(11) << "Username:" << right << setw(10) << this->_userName << endl;
-    cout << left << setw(11) << "Password:" << right << setw(10) << this->_passWord << endl;
-    cout << left << setw(11) << "Email:" << right << setw(10) << this->_email << endl;
-    cout << left << setw(11) << "Address:" << right << setw(10) << this->_address << endl;
-      cout << left << setw(11) << "Record number:" << right << setw(10) << this->_recNum + 1<< endl;
+    cout << left << setw(11) << "Name:" << right << setw(9) << this->_name << endl;
+    cout << left << setw(11) << "Username:" << right << setw(9) << this->_userName << endl;
+    cout << left << setw(11) << "Password:" << right << setw(11) << this->_passWord << endl;
+    cout << left << setw(11) << "Email:" << right << setw(11) << this->_email << endl;
+    cout << left << setw(11) << "Address:" << right << setw(11) << this->_address << endl;
+      cout << left << setw(11) << "Record number:" << right << setw(3) << this->_recNum + 1<< endl;
     cout << endl;
 }
 
@@ -858,7 +858,7 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
         string name(nameLen, '\0');
         binInFile.read(reinterpret_cast<char*>(&name[0]), nameLen);
         _name = name;
-
+        cout<<"name "<<_name<<endl;
         unsigned int userNameLen;
         binInFile.read(reinterpret_cast<char*>(&userNameLen), sizeof(userNameLen));
         string userName(userNameLen, '\0');
@@ -889,6 +889,6 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
 
         for (int i = 0; i < User::_totalHistory; ++i) {
             _shoppingHistory[i].deserialize(binInFile);
-            _shoppingHistory[i].display();
+           // _shoppingHistory[i].display();
         }
     }
