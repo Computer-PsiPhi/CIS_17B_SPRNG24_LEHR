@@ -836,11 +836,20 @@ void User::serializeUser(ofstream& binOutFile) const {
     binOutFile.write(reinterpret_cast<const char*> (&passWordLen), sizeof (passWordLen));
     binOutFile.write(reinterpret_cast<const char*> (&addressLen), sizeof (addressLen));
     
-    cout<<_name<<_userName << _email << _passWord << _address <<endl;
+    unsigned int itemNameLen;
     
-    cout << nameLen << userNameLen << emailLen << passWordLen << addressLen <<endl;
+    for (int i =0 ; i < User::_totalHistory; i++){
+    cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
+     itemNameLen = _shoppingHistory[i].getName().length();
+       binOutFile.write(reinterpret_cast<const char*> (&itemNameLen), sizeof (itemNameLen));
+    }
     
-    cout<<_name.c_str()<<_userName.c_str() << _email.c_str() << _passWord.c_str() << _address.c_str() <<endl;
+    //delete : for debug
+//    cout<<_name<<_userName << _email << _passWord << _address <<endl;
+//    
+//    cout << nameLen << userNameLen << emailLen << passWordLen << addressLen <<endl;
+//    
+//    cout<<_name.c_str()<<_userName.c_str() << _email.c_str() << _passWord.c_str() << _address.c_str() <<endl;
  
 
     binOutFile.write(_name.c_str(), nameLen);
@@ -852,10 +861,28 @@ void User::serializeUser(ofstream& binOutFile) const {
     binOutFile.write(_passWord.c_str(), passWordLen);
 
     binOutFile.write(_address.c_str(), addressLen);
+    
+    for (int i =0 ; i < User::_totalHistory; i++){
+   // cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
+      itemNameLen = _shoppingHistory[i].getName().length(); 
+      
+       binOutFile.write( _shoppingHistory[i].getName().c_str(), itemNameLen )
+    }
+    
+    
 
    // binOutFile.write(reinterpret_cast<const char*> (&_cartSize), sizeof (_cartSize));
     binOutFile.write(reinterpret_cast<const char*> (&_recNum), sizeof (_recNum));
     binOutFile.write(reinterpret_cast<const char*> (&_totalHistory), sizeof (_totalHistory));
+    
+        for (int i =0 ; i < User::_totalHistory; i++){
+   // cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
+     //itemNameLen = _shoppingHistory[i].getName().length();        
+    binOutFile.write(reinterpret_cast<const char*> (&_shoppingHistory[i].getPrice() ), sizeof (_shoppingHistory[i].getPrice() ));
+    binOutFile.write(reinterpret_cast<const char*> (&_shoppingHistory[i].getQuant() ), sizeof (_shoppingHistory[i].getQuant() ));
+   
+    }
+    
 
 //            for (int i = 0; i < User::_totalHistory; ++i) {
 //                _shoppingHistory[i].serialize(binOutFile);
