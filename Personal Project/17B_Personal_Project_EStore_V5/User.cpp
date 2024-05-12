@@ -535,61 +535,6 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
   }
   
   // Deserialize User function 
-  void User::deserializeUser( const string &file) {
-       ifstream binInFile(file, ios::binary);
-
-        if (!binInFile) {
-            cerr << "Error opening file for reading.\n";
-            return;
-        }
-      
-          unsigned int nameLen, usrNameLen, emailLen, pwLen, addressLen;
-        binInFile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
-        binInFile.read(reinterpret_cast<char*>(&usrNameLen), sizeof(usrNameLen));
-        binInFile.read(reinterpret_cast<char*>(&emailLen), sizeof(emailLen));
-        binInFile.read(reinterpret_cast<char*>(&pwLen), sizeof(pwLen));
-        binInFile.read(reinterpret_cast<char*>(&addressLen), sizeof(addressLen));
-
-        _name.resize(nameLen);
-        _userName.resize(usrNameLen);
-        _email.resize(emailLen);
-        _passWord.resize(pwLen);
-        _address.resize(addressLen);
-        
-        cout<<"558 "<<_name<<" "<<_address<<endl; // debugg
-
-        binInFile.read(&_name[0], nameLen);
-        binInFile.read(&_userName[0], usrNameLen);
-        binInFile.read(&_email[0], emailLen);
-        binInFile.read(&_passWord[0], pwLen);
-        binInFile.read(&_address[0], addressLen);
-
-        for (int i = 0; i < _totalHistory; ++i) {
-            unsigned int itemNameLen;
-            binInFile.read(reinterpret_cast<char*>(&itemNameLen), sizeof(itemNameLen));
-
-            string itemName(itemNameLen, '\0');
-            binInFile.read(&itemName[0], itemNameLen);
-            cout<<"573 : "<<itemName<<endl;
-            int itemN, quant;
-            float price;
-
-            binInFile.read(reinterpret_cast<char*>(&itemN), sizeof(itemN));
-            binInFile.read(reinterpret_cast<char*>(&price), sizeof(price));
-            binInFile.read(reinterpret_cast<char*>(&quant), sizeof(quant));
-
-            _shoppingHistory[i].setName(itemName);
-            _shoppingHistory[i].setItemNum(itemN);
-            _shoppingHistory[i].setPrice(price);
-            _shoppingHistory[i].setQuant(quant);
-        }
-
-        binInFile.read(reinterpret_cast<char*>(&_recNum), sizeof(_recNum));
-        binInFile.read(reinterpret_cast<char*>(&_totalHistory), sizeof(_totalHistory));
-
-        binInFile.close();
-   }
-  
   void User::deserializeUser(const string &file) {
     ifstream binInFile(file, ios::binary);
     if (!binInFile) {
@@ -597,12 +542,14 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
         return;
     }
 
-    unsigned int nameLen, usrNameLen, emailLen, pwLen, addressLen;
-    binInFile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
-    binInFile.read(reinterpret_cast<char*>(&usrNameLen), sizeof(usrNameLen));
-    binInFile.read(reinterpret_cast<char*>(&emailLen), sizeof(emailLen));
-    binInFile.read(reinterpret_cast<char*>(&pwLen), sizeof(pwLen));
-    binInFile.read(reinterpret_cast<char*>(&addressLen), sizeof(addressLen));
+    unsigned int sizes[5]; // Array to hold sizes
+    binInFile.read(reinterpret_cast<char*>(&sizes), sizeof(sizes)); // Read sizes array
+
+    unsigned int nameLen = sizes[0];
+    unsigned int usrNameLen = sizes[1];
+    unsigned int emailLen = sizes[2];
+    unsigned int pwLen = sizes[3];
+    unsigned int addressLen = sizes[4];
 
     _name.resize(nameLen + 1);
     _userName.resize(usrNameLen + 1);
@@ -611,18 +558,26 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
     _address.resize(addressLen + 1);
 
     binInFile.read(&_name[0], nameLen);
+    _name[nameLen] = '\0'; // Null terminate the string
+
     binInFile.read(&_userName[0], usrNameLen);
+    _userName[usrNameLen] = '\0'; // Null terminate the string
+
     binInFile.read(&_email[0], emailLen);
+    _email[emailLen] = '\0'; // Null terminate the string
+
     binInFile.read(&_passWord[0], pwLen);
+    _passWord[pwLen] = '\0'; // Null terminate the string
+
     binInFile.read(&_address[0], addressLen);
+    _address[addressLen] = '\0'; // Null terminate the string
 
-    _name[nameLen] = '\0';
-    _userName[usrNameLen] = '\0';
-    _email[emailLen] = '\0';
-    _passWord[pwLen] = '\0';
-    _address[addressLen] = '\0';
+    unsigned int numHistoryItems;
+    binInFile.read(reinterpret_cast<char*>(&numHistoryItems), sizeof(numHistoryItems));
 
-    for (int i = 0; i < _totalHistory; ++i) {
+    _shoppingHistory.resize(numHistoryItems);
+
+    for (int i = 0; i < numHistoryItems; ++i) {
         unsigned int itemNameLen;
         binInFile.read(reinterpret_cast<char*>(&itemNameLen), sizeof(itemNameLen));
 
@@ -649,3 +604,52 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
 
     binInFile.close();
 }
+
+//  
+  // Deserialize User function 
+//  void User::deserializeUser( const string &file) {
+//       ifstream binInFile(file, ios::binary);
+//
+//        if (!binInFile) {
+//            cerr << "Error opening file for reading.\n";
+//            return;
+//        }
+//      
+//         unsigned int nameLen, usrNameLen, emailLen, pwLen, addressLen;
+//        binInFile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
+//        binInFile.read(reinterpret_cast<char*>(&usrNameLen), sizeof(usrNameLen));
+//        binInFile.read(reinterpret_cast<char*>(&emailLen), sizeof(emailLen));
+//        binInFile.read(reinterpret_cast<char*>(&pwLen), sizeof(pwLen));
+//        binInFile.read(reinterpret_cast<char*>(&addressLen), sizeof(addressLen));
+//        
+//        
+//        
+//      string itemName;
+//      unsigned int itemNameLen [User::_totalHistory];
+//      for (int i =0; i< User::_totalHistory; i++){    
+//          binInFile.read(reinterpret_cast<char*>(itemNameLen[i]) ,sizeof(itemNameLen) );
+//          
+//          
+//       
+//          cout<<" line 616: "<<itemNameLen[i]<<endl;
+//   //    itemName = _shoppingHistory[i].getName();
+//     // cout<<"\n149: "<<itemName<<endl; // debug
+//     // itemNameLen = itemName.length();
+//       //cout<<"\n 152 "<<itemNameLen<<endl; // debug
+//     //  binOutFile.read(reinterpret_cast<char *>(&itemNameLen ), sizeof(itemNameLen));
+//      }
+//       
+//      /*
+//                 unsigned int nameLen;
+//        unsigned int descLen; // New
+//        ifs.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen)); // Read length of name
+//        ifs.read(reinterpret_cast<char*>(&descLen), sizeof(descLen)); // Read length of description
+//        name.resize(nameLen);
+//        ifs.read(&name[0], nameLen); // Read name data
+//        description.resize(descLen); // Resize description string
+//        ifs.read(&description[0], descLen); // Read description data
+//        ifs.read(reinterpret_cast<char*>(&price), sizeof(price)); // Read price
+//        ifs.read(reinterpret_cast<char*>(&quantity), sizeof(quantity)); // Read quantity
+//       */
+//  }
+//  
