@@ -17,10 +17,10 @@ Menu::Menu() : _customers{nullptr}, _admin{}
     cout << "exit default menu constructor";
 }
 
-//Menu::Menu(User *customers, int n) {
-//    this->_customers = customers;
-//
-//}
+Menu::Menu(User *customers, int n) {
+    this->_customers = customers;
+
+}
 
 Menu::Menu(const string &binaryFile) {
     this->_admin = Admin("Password", "Admin123", true, false, -1);
@@ -40,8 +40,7 @@ Menu::Menu(const string &binaryFile) {
     //    _store.serachStoreRecords();
     //    _store.searchBinaryRecords();
 
-
-    cout << "exit 1 PARAM menu constructor";
+    cout<<endl<<endl;
 }
 
 Menu::Menu(const Menu& orig) {
@@ -76,7 +75,9 @@ void Menu::clearScreenChoice() {
 
 void Menu::startMenu() {
     cout<<endl;
+   
     cout << "\nMenu Options:" << endl;
+    cout <<"ADMIN LOGIN CREDENTIALS: Username: Admin123, Password: Password "<<endl;
     cout << "1. Log in" << endl;
     cout << "2. Sign up" << endl;
     cout << "3. Exit" << endl;
@@ -120,11 +121,18 @@ User Menu::*findUser(const string &userName, const string &password) {
 }
 
 void Menu::runMenu() {
-    const string users ="users.bin";
-    
-     ifstream inFile(users, ios::binary);
-  
-      ofstream outFile(users, ios::binary);
+   // const string users ="users.bin";
+     
+   ofstream outFile("users.bin", std::ios::binary | std::ios::out | std::ios::trunc);
+   ifstream inFile("users.bin", ios::binary);
+   
+if (!outFile.is_open() || !inFile.is_open() ) {
+    cerr << "Error: Output file is not open." << endl;
+    cerr << "Error: Input file is not open." << endl;
+}
+
+
+
     cout << boolalpha;
     int currentUsers = User::getNumUsers();
     int choice(0);
@@ -134,16 +142,14 @@ void Menu::runMenu() {
     Admin admin;
 
 
+//    for (int i = 0; i < currentUsers; ++i) {
+//        _customers[i].displayShoppingHistory();
+//    }
+//
 
-for (int i=0; i< currentUsers; i++ ){
-      //  _customers[i].displayHistory();
-}
-
-if(outFile.is_open())for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
+for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
     
-    
-
-   if(inFile.is_open()) for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(inFile);
+ //for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(inFile);
     
     do {
         currentUsers = User::getNumUsers();
@@ -159,8 +165,8 @@ if(outFile.is_open())for (int i=0; i< currentUsers; i++ ) _customers[i].serializ
 
                 bool userIn = false;
                 bool adminIn = false;
-                for (int i = 0; i < currentUsers; i++) this->_customers[i].displayContactInfo(); // debugging
-                _admin.displayContactInfo();
+              //  for (int i = 0; i < currentUsers; i++) this->_customers[i].displayContactInfo(); // debugging
+              //  _admin.displayShoppingHistory();
                 string username, password;
                 cout << "Enter username: ";
                 getline(cin, username);
@@ -168,7 +174,7 @@ if(outFile.is_open())for (int i=0; i< currentUsers; i++ ) _customers[i].serializ
                 getline(cin, password);
 
                 for (int i = 0; i < currentUsers; i++) {
-               //     cout << "145 status: " << _customers[i].getlogStatus(); // debug
+                  cout << "145 status: " << _customers[i].getlogStatus(); // debug
                     if (_customers[i].verifyCred(password, username)) {
 
                         userIndex = i;
@@ -218,7 +224,7 @@ _customers[userIndex].displayHistory();
         for(int i =0; i< _customers[userIndex].getTotItemInHist(); i++){
            // _customers[i].getShopHist(i).getName();
             s = _customers[userIndex].getShopHist(i).getName();
-            cout<<"s is : "<<s<<endl;
+           
         }
         int ch;
         float total = 0.0;
@@ -303,6 +309,10 @@ _customers[userIndex].displayHistory();
 }
 while (choice != 3);
 
+inFile.close(); // Close the file stream after reading
+
+outFile.close(); // Close the file stream after writing
+cout<<"END!!!"<<endl;
 }
 
 void Menu::signUp() {

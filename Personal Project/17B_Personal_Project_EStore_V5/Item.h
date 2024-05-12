@@ -38,7 +38,7 @@ public:
     float getPrice()const {return this->_price; }
     int getQuant()const {return this->_quantity; }
     
-    void serialize(ofstream& ofs) const;
+    void serialize(ofstream& ofs) const ;
     void deserialize(ifstream& ifs) ;
     
     void display(){

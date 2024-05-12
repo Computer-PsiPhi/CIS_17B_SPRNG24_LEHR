@@ -23,8 +23,8 @@ private:
     
 public:
     Menu();
-    Menu(const string &binaryFile);
-   // Menu(User *customers , int n);
+   Menu(const string &binaryFile);
+    Menu(User *customers , int n);
     Menu(const Menu& orig);
     virtual ~Menu();
 

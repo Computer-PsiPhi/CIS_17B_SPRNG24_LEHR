@@ -35,6 +35,7 @@ private:
     int _recNum;
     Item _shoppingHistory[SIZE];
     int _totalHistory;
+    
     Cart _shoppingCart;
 
     bool _isLoggedIn;
@@ -120,9 +121,12 @@ public:
   static int getNumUsers(){ return _users;  };
   
   void addToHistory();
-  
- void serializeUser(ofstream& binOutFile);
-      void deserializeUser(ifstream& binInFile);
+  void displayShoppingHistory() ;
+// void serializeUser(ofstream& binOutFile);
+     void deserializeUser(ifstream& binInFile);
+      
+    void serializeUser(std::ofstream& binOutFile) const ;
+      
 };
 #endif /* USER_H */
 
