@@ -121,9 +121,8 @@ public:
   
   void addToHistory();
   
-  void serializeUser( const string &file);
-  void deserializeUser( const string &file);
-      
+ void serializeUser(ofstream& binOutFile);
+      void deserializeUser(ifstream& binInFile);
 };
 #endif /* USER_H */
 

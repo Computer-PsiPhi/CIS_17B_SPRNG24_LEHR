@@ -761,12 +761,14 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
   /*
    
    */
-  void User::serializeUser(const string &file) {
+  
+  
+  void User::serializeUser(ofstream& binOutFile) {
       cout<<"Enter serializatin for user: "<<User::_name<<endl;
-    ofstream binOutFile(file, ios::binary);
+      binOutFile.open("user.bin", ios::binary);
     if (!binOutFile) {
         cerr << "Error opening file for serialization." << endl;
-        return;
+        //return;
     }
 
     // Write user information
@@ -815,13 +817,15 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
     // Write record number
     binOutFile.write(reinterpret_cast<const char *>(&_recNum), sizeof(_recNum));
 
-    binOutFile.close();
+   
 }
   
-void User::deserializeUser(const string &file) {
+void User::deserializeUser(ifstream& binInFile) {
+    
     cout << "Enter deserialization for user: " << User::_name << endl;
-    ifstream binInFile(file, ios::binary);
+   
     if (!binInFile) {
+        
         cerr << "Error opening file for deserialization." << endl;
         return;
     }
@@ -884,6 +888,6 @@ void User::deserializeUser(const string &file) {
     // Read record number
     binInFile.read(reinterpret_cast<char *>(&_recNum), sizeof(_recNum));
 
-    binInFile.close();
+  
     cout << "Exit deserialization" << endl;
 }

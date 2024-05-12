@@ -17,10 +17,10 @@ Menu::Menu() : _customers{nullptr}, _admin{}
     cout << "exit default menu constructor";
 }
 
-Menu::Menu(User *customers, int n) {
-    this->_customers = customers;
-
-}
+//Menu::Menu(User *customers, int n) {
+//    this->_customers = customers;
+//
+//}
 
 Menu::Menu(const string &binaryFile) {
     this->_admin = Admin("Password", "Admin123", true, false, -1);
@@ -121,6 +121,9 @@ User Menu::*findUser(const string &userName, const string &password) {
 
 void Menu::runMenu() {
     const string users ="users.bin";
+    
+     ifstream inFile(users, ios::binary);
+      ofstream outFile(users, ios::binary);
     cout << boolalpha;
     int currentUsers = User::getNumUsers();
     int choice(0);
@@ -135,11 +138,11 @@ for (int i=0; i< currentUsers; i++ ){
       //  _customers[i].displayHistory();
 }
 
-for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser(users);
+for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
     
     
-for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(users);
-    
+
+    for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(inFile);
     
     do {
         currentUsers = User::getNumUsers();
