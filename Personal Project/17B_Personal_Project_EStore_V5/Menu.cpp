@@ -123,6 +123,7 @@ void Menu::runMenu() {
     const string users ="users.bin";
     
      ifstream inFile(users, ios::binary);
+  
       ofstream outFile(users, ios::binary);
     cout << boolalpha;
     int currentUsers = User::getNumUsers();
@@ -138,11 +139,11 @@ for (int i=0; i< currentUsers; i++ ){
       //  _customers[i].displayHistory();
 }
 
-for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
+if(outFile.is_open())for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
     
     
 
-    for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(inFile);
+   if(inFile.is_open()) for (int i=0; i< currentUsers; i++ ) _customers[i].deserializeUser(inFile);
     
     do {
         currentUsers = User::getNumUsers();

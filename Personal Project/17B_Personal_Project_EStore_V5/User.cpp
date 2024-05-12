@@ -765,7 +765,7 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
   
   void User::serializeUser(ofstream& binOutFile) {
       cout<<"Enter serializatin for user: "<<User::_name<<endl;
-      binOutFile.open("user.bin", ios::binary);
+      
     if (!binOutFile) {
         cerr << "Error opening file for serialization." << endl;
         //return;
