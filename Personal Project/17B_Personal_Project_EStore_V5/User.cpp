@@ -106,7 +106,7 @@ bool User::isValName(string str, int minLen) {
 bool User::isValUsrName(string str, int minLen) {
     // Regular expressions to match special character or letter requirements
 
- // Regular expressions to match valid username characters
+    // Regular expressions to match valid username characters
     regex valid("[a-zA-Z0-9]");
     regex spaces("[\\s]");
 
@@ -190,11 +190,11 @@ void User::setName() {
 void User::setUsrName() {
     string usrName;
     bool isGood = false;
-   
+
     while (!isGood) {
-        cout << "\nEnter Username: " << endl;        
+        cout << "\nEnter Username: " << endl;
         // cin>>usrName;
-        getline(cin,usrName);
+        getline(cin, usrName);
         try {
             if (!User::isValUsrName(usrName)) {
                 throw invalid_argument("Follow Username Requirements!\n");
@@ -204,10 +204,10 @@ void User::setUsrName() {
             cerr << "Invalid Username: " << e.what();
         } catch (...) {
             cerr << "Unknown exception " << endl;
-       }
+        }
     }
     this->_userName = usrName;
-  
+
 }
 
 void User::setEmail() {
@@ -216,8 +216,8 @@ void User::setEmail() {
 
     while (not isGood) {
         cout << "\nEnter email: " << endl;
-        getline(cin,email);
-        
+        getline(cin, email);
+
         try {
             if (not User::isValEmail(email)) {
                 throw invalid_argument("Incorrect Email Requirements\n");
@@ -237,8 +237,8 @@ void User::setPassWord() {
     bool isGood = false;
 
     while (not isGood) {
-        cout<<"\nEnter Password "<<endl;       
-   getline(cin,passwrd);
+        cout << "\nEnter Password " << endl;
+        getline(cin, passwrd);
         try {
             if (not User::isValPass(passwrd)) {
                 throw invalid_argument("Incorrect Password Requirements\n");
@@ -260,7 +260,7 @@ void User::setAddress() {
     while (not isGood) {
         cout << "\nEnter Address: " << endl;
         getline(cin, addrss);
-       
+
         try {
             if (not User::isValAddss(addrss)) {
                 throw invalid_argument("Incorrect Address Requirements\n");
@@ -275,13 +275,13 @@ void User::setAddress() {
     this->User::_address = addrss;
 }
 
-   void User::setRecNum(int r) {
-       if( r > this->User::_MAX) {
-           cerr<<"ERROR!"<<endl;
-                   return; 
-       }
-       this->User::_recNum = r ;
-   };
+void User::setRecNum(int r) {
+    if (r > this->User::_MAX) {
+        cerr << "ERROR!" << endl;
+        return;
+    }
+    this->User::_recNum = r;
+};
 
 const string & User::getName() const {
     return this->_name;
@@ -308,21 +308,21 @@ const int User::getRecNum() const {
 }
 
 void User::fillRand(const Store &store) {
-//    // Create an array of item indices 
+    //    // Create an array of item indices 
     int *itemIndices = new int[store.getTotalItems()];
     for (int i = 0; i < store.getTotalItems(); i++) {
         itemIndices[i] = i;
     }
 
-//    // Shuffle 
+    //    // Shuffle 
     for (int i = store.getTotalItems() - 1; i > 0; i--) {
         int j = rand() % (i + 1);
         int temp = itemIndices[i];
         itemIndices[i] = itemIndices[j];
         itemIndices[j] = temp;
     }
-//    // Randomly choose number of items 
-    int numItems =3 ;// min(rand() % 10 + 1, store.getTotalItems());
+    //    // Randomly choose number of items 
+    int numItems = 3; // min(rand() % 10 + 1, store.getTotalItems());
 
     // Temp array 
     int *selected = new int[numItems];
@@ -359,7 +359,7 @@ void User::displayHistory() {
     cout << "**********************" << endl;
     User::displayContactInfo();
     cout << "Shopping History " << endl;
-    cout << "Total items in history: " << this->User::_totalHistory <<endl;
+    cout << "Total items in history: " << this->User::_totalHistory << endl;
     cout << "======================" << endl;
     for (short i = 0; i < this->_totalHistory; i++) {
         this->_shoppingHistory[i].display();
@@ -398,32 +398,32 @@ void User::displayContactInfo() {
     cout << left << setw(11) << "Password:" << right << setw(11) << this->_passWord << endl;
     cout << left << setw(11) << "Email:" << right << setw(11) << this->_email << endl;
     cout << left << setw(11) << "Address:" << right << setw(11) << this->_address << endl;
-      cout << left << setw(11) << "Record number:" << right << setw(3) << this->_recNum + 1<< endl;
+    cout << left << setw(11) << "Record number:" << right << setw(3) << this->_recNum + 1 << endl;
     cout << endl;
 }
 
-    void User::displayShoppingHistory() {
-        cout<<"**************************"<<endl;
-                    cout << "Record Number: " << _recNum +1<< endl;
-        cout<<"**************************"<<endl;
-       
-        cout << "Name: " << _name << endl;
-        cout << "Username: " << _userName << endl;
-        cout << "Email: " << _email << endl;
-        cout << "Password: " << _passWord << endl;
-        cout << "Address: " << _address << endl;
-      //  cout << "Cart Size: " << _cartSize << endl;
-       // cout << "Record Number: " << _recNum+1 << endl;
-        cout << "Total History: " << _totalHistory << endl;
-        cout << "Shopping History:" << endl;
-        cout<<endl;
-        for (int i = 0; i < User::_totalHistory; ++i) {
-            _shoppingHistory[i].display();
-            cout<<endl;
-        }
-         cout<<"--------------------------"<<endl;
+void User::displayShoppingHistory() {
+    cout << "**************************" << endl;
+    cout << "Record Number: " << _recNum + 1 << endl;
+    cout << "**************************" << endl;
+
+    cout << "Name: " << _name << endl;
+    cout << "Username: " << _userName << endl;
+    cout << "Email: " << _email << endl;
+    cout << "Password: " << _passWord << endl;
+    cout << "Address: " << _address << endl;
+    //  cout << "Cart Size: " << _cartSize << endl;
+    // cout << "Record Number: " << _recNum+1 << endl;
+    cout << "Total History: " << _totalHistory << endl;
+    cout << "Shopping History:" << endl;
+    cout << endl;
+    for (int i = 0; i < User::_totalHistory; ++i) {
+        _shoppingHistory[i].display();
         cout << endl;
     }
+    cout << "--------------------------" << endl;
+    cout << endl;
+}
 
 void User::changeUserInfo(User* usersArray, int size, int index) {
     if (index >= 0 && index < size) {
@@ -480,21 +480,22 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
 }
 
 // TODO : UNFINISHED
-  void User::addToHistory(){
-       int itemCount = this->User::_shoppingCart.getCount();
-       cout<<"Number of Items in Cart to be added to shopping History: "<<itemCount<<endl;
-      for (int i =0; i< itemCount; i++){
-           this->_shoppingHistory[_totalHistory ] = _shoppingCart.getItem(i);
-           _totalHistory++;
-      } 
-  }
+
+void User::addToHistory() {
+    int itemCount = this->User::_shoppingCart.getCount();
+    cout << "Number of Items in Cart to be added to shopping History: " << itemCount << endl;
+    for (int i = 0; i < itemCount; i++) {
+        this->_shoppingHistory[_totalHistory ] = _shoppingCart.getItem(i);
+        _totalHistory++;
+    }
+}
 
 /*TODO 
  *     ADD REMOVE ITEM/S FROM HISTORY
  */
-  
-  // Serialize User function
-  
+
+// Serialize User function
+
 //  void User::serializeUser(ofstream& binOutFile) {
 //   //   cout<<"Enter serializatin for user: "<<User::_name<<endl; // debug
 //      
@@ -568,8 +569,8 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
 //       
 //  }
 //  
-  
-  // Deserialize User function 
+
+// Deserialize User function 
 //void User::deserializeUser(ifstream& binInFile)  {
 //    cout << "enter deserialization" << endl;
 //   
@@ -640,10 +641,10 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
 //       */
 //}
 //  
-  
-  /*
+
+/*
    
-   */
+ */
 //  
 //  void User::serializeUser(ofstream& binOutFile) {
 //   //   cout<<"Enter serializatin for user: "<<User::_name<<endl; // debug
@@ -694,7 +695,7 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
 //}
 //  
 
-  
+
 //  
 //  void User::serializeUser(ofstream& binOutFile) {
 //   //   cout<<"Enter serializatin for user: "<<User::_name<<endl; // debug
@@ -822,73 +823,100 @@ void User::changeUserInfo(User* usersArray, int size, int index) {
 /*New Versions of serialize and deserialize 
  */
 
-    void User::serializeUser(ofstream& binOutFile) const {
-        unsigned int nameLen = _name.length();
-        binOutFile.write(reinterpret_cast<const char*>(&nameLen), sizeof(nameLen));
-        binOutFile.write(_name.c_str(), nameLen);
+void User::serializeUser(ofstream& binOutFile) const {
+    unsigned int nameLen = _name.length();
+    unsigned int userNameLen = _userName.length();
+    unsigned int emailLen = _email.length();
+    unsigned int passWordLen = _passWord.length();
+    unsigned int addressLen = _address.length();
 
-        unsigned int userNameLen = _userName.length();
-        binOutFile.write(reinterpret_cast<const char*>(&userNameLen), sizeof(userNameLen));
-        binOutFile.write(_userName.c_str(), userNameLen);
+    binOutFile.write(reinterpret_cast<const char*> (&nameLen), sizeof (nameLen));
+    binOutFile.write(reinterpret_cast<const char*> (&userNameLen), sizeof (userNameLen));
+    binOutFile.write(reinterpret_cast<const char*> (&emailLen), sizeof (emailLen));
+    binOutFile.write(reinterpret_cast<const char*> (&passWordLen), sizeof (passWordLen));
+    binOutFile.write(reinterpret_cast<const char*> (&addressLen), sizeof (addressLen));
+    
+    cout<<_name<<_userName << _email << _passWord << _address <<endl;
+    
+    cout << nameLen << userNameLen << emailLen << passWordLen << addressLen <<endl;
+    
+    cout<<_name.c_str()<<_userName.c_str() << _email.c_str() << _passWord.c_str() << _address.c_str() <<endl;
+ 
 
-        unsigned int emailLen = _email.length();
-        binOutFile.write(reinterpret_cast<const char*>(&emailLen), sizeof(emailLen));
-        binOutFile.write(_email.c_str(), emailLen);
+    binOutFile.write(_name.c_str(), nameLen);
 
-        unsigned int passWordLen = _passWord.length();
-        binOutFile.write(reinterpret_cast<const char*>(&passWordLen), sizeof(passWordLen));
-        binOutFile.write(_passWord.c_str(), passWordLen);
+    binOutFile.write(_userName.c_str(), userNameLen);
 
-        unsigned int addressLen = _address.length();
-        binOutFile.write(reinterpret_cast<const char*>(&addressLen), sizeof(addressLen));
-        binOutFile.write(_address.c_str(), addressLen);
+    binOutFile.write(_email.c_str(), emailLen);
 
-        binOutFile.write(reinterpret_cast<const char*>(&_cartSize), sizeof(_cartSize));
-        binOutFile.write(reinterpret_cast<const char*>(&_recNum), sizeof(_recNum));
-        binOutFile.write(reinterpret_cast<const char*>(&_totalHistory), sizeof(_totalHistory));
+    binOutFile.write(_passWord.c_str(), passWordLen);
 
-        for (int i = 0; i < User::_totalHistory; ++i) {
-            _shoppingHistory[i].serialize(binOutFile);
-        }
-    }
+    binOutFile.write(_address.c_str(), addressLen);
 
-    void User::deserializeUser(ifstream& binInFile) {
-        unsigned int nameLen;
-        binInFile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
-        string name(nameLen, '\0');
-        binInFile.read(reinterpret_cast<char*>(&name[0]), nameLen);
-        _name = name;
-        cout<<"name "<<_name<<endl;
-        unsigned int userNameLen;
-        binInFile.read(reinterpret_cast<char*>(&userNameLen), sizeof(userNameLen));
-        string userName(userNameLen, '\0');
-        binInFile.read(reinterpret_cast<char*>(&userName[0]), userNameLen);
-        _userName = userName;
+   // binOutFile.write(reinterpret_cast<const char*> (&_cartSize), sizeof (_cartSize));
+    binOutFile.write(reinterpret_cast<const char*> (&_recNum), sizeof (_recNum));
+    binOutFile.write(reinterpret_cast<const char*> (&_totalHistory), sizeof (_totalHistory));
 
-        unsigned int emailLen;
-        binInFile.read(reinterpret_cast<char*>(&emailLen), sizeof(emailLen));
-        string email(emailLen, '\0');
-        binInFile.read(reinterpret_cast<char*>(&email[0]), emailLen);
-        _email = email;
+//            for (int i = 0; i < User::_totalHistory; ++i) {
+//                _shoppingHistory[i].serialize(binOutFile);
+//            }
+}
 
-        unsigned int passWordLen;
-        binInFile.read(reinterpret_cast<char*>(&passWordLen), sizeof(passWordLen));
-        string passWord(passWordLen, '\0');
-        binInFile.read(reinterpret_cast<char*>(&passWord[0]), passWordLen);
-        _passWord = passWord;
+void User::deserializeUser(ifstream& binInFile) {
+    
+    unsigned int nameLen;
+    binInFile.read(reinterpret_cast<char*> (&nameLen), sizeof (nameLen));
+    
+    unsigned int userNameLen;
+    binInFile.read(reinterpret_cast<char*> (&userNameLen), sizeof (userNameLen));
+    
+    unsigned int emailLen;
+    binInFile.read(reinterpret_cast<char*> (&emailLen), sizeof (emailLen));
+    
+    unsigned int passWordLen;
+    binInFile.read(reinterpret_cast<char*> (&passWordLen), sizeof (passWordLen));
+    
+    unsigned int addressLen;
+    binInFile.read(reinterpret_cast<char*> (&addressLen), sizeof (addressLen));
+    /*
+     * 
+    binOutFile.write(reinterpret_cast<const char*> (&nameLen), sizeof (nameLen));
+    binOutFile.write(reinterpret_cast<const char*> (&userNameLen), sizeof (userNameLen));
+    binOutFile.write(reinterpret_cast<const char*> (&emailLen), sizeof (emailLen));
+    binOutFile.write(reinterpret_cast<const char*> (&passWordLen), sizeof (passWordLen));
+    binOutFile.write(reinterpret_cast<const char*> (&addressLen), sizeof (addressLen));
+     */
+    
+    string name(nameLen, '\0');
+    binInFile.read(reinterpret_cast<char*> (&name[0]), nameLen);
+    _name = name;
+    cout<<"878 "<<_name<<endl;
 
-        unsigned int addressLen;
-        binInFile.read(reinterpret_cast<char*>(&addressLen), sizeof(addressLen));
-        string address(addressLen, '\0');
-        binInFile.read(reinterpret_cast<char*>(&address[0]), addressLen);
-        _address = address;
+    string userName(userNameLen, '\0');
+    binInFile.read(reinterpret_cast<char*> (&userName[0]), userNameLen);
+    _userName = userName;
 
-        binInFile.read(reinterpret_cast<char*>(&_cartSize), sizeof(_cartSize));
-        binInFile.read(reinterpret_cast<char*>(&_recNum), sizeof(_recNum));
-        binInFile.read(reinterpret_cast<char*>(&_totalHistory), sizeof(_totalHistory));
+ 
+    string email(emailLen, '\0');
+    binInFile.read(reinterpret_cast<char*> (&email[0]), emailLen);
+    _email = email;
 
-        for (int i = 0; i < User::_totalHistory; ++i) {
-            _shoppingHistory[i].deserialize(binInFile);
-           // _shoppingHistory[i].display();
-        }
-    }
+
+    string passWord(passWordLen, '\0');
+    binInFile.read(reinterpret_cast<char*> (&passWord[0]), passWordLen);
+    _passWord = passWord;
+
+   
+    string address(addressLen, '\0');
+    binInFile.read(reinterpret_cast<char*> (&address[0]), addressLen);
+    _address = address;
+
+   // binInFile.read(reinterpret_cast<char*> (&_cartSize), sizeof (_cartSize));
+    binInFile.read(reinterpret_cast<char*> (&_recNum), sizeof (_recNum));
+    binInFile.read(reinterpret_cast<char*> (&_totalHistory), sizeof (_totalHistory));
+
+//            for (int i = 0; i < User::_totalHistory; ++i) {
+//                _shoppingHistory[i].deserialize(binInFile);
+//               // _shoppingHistory[i].display();
+//            }
+}

@@ -152,8 +152,11 @@ for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
  for (int i=0; i< currentUsers; i++ ) {
      cout<<"153"<<endl;
      _customers[i].deserializeUser(inFile);
+     
      cout<<"after on 155"<<endl;
+  _customers[i].displayHistory();   
  }
+
     
     do {
         currentUsers = User::getNumUsers();
