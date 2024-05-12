@@ -153,8 +153,6 @@ for (int i=0; i< currentUsers; i++ ) _customers[i].serializeUser( outFile);
  
      _customers[i].deserializeUser(inFile);
      
-
-  _customers[i].displayHistory();   
  }
     
     

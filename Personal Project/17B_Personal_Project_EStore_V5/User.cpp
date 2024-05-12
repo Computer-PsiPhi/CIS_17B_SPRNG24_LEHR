@@ -824,6 +824,7 @@ void User::addToHistory() {
  */
 
 void User::serializeUser(ofstream& binOutFile) const {
+    cout<<"user in serialization "<<User::_name<<endl;
     unsigned int nameLen = _name.length();
     unsigned int userNameLen = _userName.length();
     unsigned int emailLen = _email.length();
@@ -836,21 +837,16 @@ void User::serializeUser(ofstream& binOutFile) const {
     binOutFile.write(reinterpret_cast<const char*> (&passWordLen), sizeof (passWordLen));
     binOutFile.write(reinterpret_cast<const char*> (&addressLen), sizeof (addressLen));
     
-//    unsigned int itemNameLen;
-//    
-//    for (int i =0 ; i < User::_totalHistory; i++){
-//    cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
-//     itemNameLen = _shoppingHistory[i].getName().length();
-//       binOutFile.write(reinterpret_cast<const char*> (&itemNameLen), sizeof (itemNameLen));
-//    }
+    unsigned int itemNameLen;
+    cout<<"total history "<<User::_totalHistory<<endl;
+    for (int i =0 ; i < User::_totalHistory; i++){
+    //cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
+     itemNameLen = _shoppingHistory[i].getName().length();
+      cout << "Item " << i << " name length during serialization: " << itemNameLen << endl;
+       binOutFile.write(reinterpret_cast<const char*> (&itemNameLen), sizeof (itemNameLen));
+    }
     
-    //delete : for debug
-//    cout<<_name<<_userName << _email << _passWord << _address <<endl;
-//    
-//    cout << nameLen << userNameLen << emailLen << passWordLen << addressLen <<endl;
-//    
-//    cout<<_name.c_str()<<_userName.c_str() << _email.c_str() << _passWord.c_str() << _address.c_str() <<endl;
- 
+
 
     binOutFile.write(_name.c_str(), nameLen);
 
@@ -862,26 +858,30 @@ void User::serializeUser(ofstream& binOutFile) const {
 
     binOutFile.write(_address.c_str(), addressLen);
     
-//    for (int i =0 ; i < User::_totalHistory; i++){
-//   // cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
-//      itemNameLen = _shoppingHistory[i].getName().length(); 
-//      
-//       binOutFile.write( _shoppingHistory[i].getName().c_str(), itemNameLen )
-//    }
-//    
+      cout<<"total history "<<User::_totalHistory<<endl;
+    for (int i =0 ; i < User::_totalHistory; i++){
+   // cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
+      itemNameLen = _shoppingHistory[i].getName().length(); 
+     // cout<<"what is being written: "<<_shoppingHistory[i].getName().c_str()<<endl;
+       binOutFile.write( _shoppingHistory[i].getName().c_str(), itemNameLen );
+    }
+    
     
 
    // binOutFile.write(reinterpret_cast<const char*> (&_cartSize), sizeof (_cartSize));
     binOutFile.write(reinterpret_cast<const char*> (&_recNum), sizeof (_recNum));
     binOutFile.write(reinterpret_cast<const char*> (&_totalHistory), sizeof (_totalHistory));
     
-//        for (int i =0 ; i < User::_totalHistory; i++){
-//   // cout<<"840: "<<    _shoppingHistory[i].getName().length()<<endl;
-//     //itemNameLen = _shoppingHistory[i].getName().length();        
-//    binOutFile.write(reinterpret_cast<const char*> (&_shoppingHistory[i].getPrice() ), sizeof (_shoppingHistory[i].getPrice() ));
-//    binOutFile.write(reinterpret_cast<const char*> (&_shoppingHistory[i].getQuant() ), sizeof (_shoppingHistory[i].getQuant() ));
-//   
-//    }
+    float price;
+    int quant; 
+      cout<<"total history "<<User::_totalHistory<<endl;
+        for (int i =0 ; i < User::_totalHistory; i++){   
+            price = _shoppingHistory[i].getPrice();
+            quant = _shoppingHistory[i].getQuant();
+    binOutFile.write(reinterpret_cast<const char*> (&price), sizeof (price) );
+    binOutFile.write(reinterpret_cast<const char*> (&quant), sizeof (quant) );
+   
+    }
     
 
 //            for (int i = 0; i < User::_totalHistory; ++i) {
@@ -890,7 +890,7 @@ void User::serializeUser(ofstream& binOutFile) const {
 }
 
 void User::deserializeUser(ifstream& binInFile) {
-    
+    cout<<"User: "<<User::_name<<endl;
     unsigned int nameLen;
     binInFile.read(reinterpret_cast<char*> (&nameLen), sizeof (nameLen));
     
@@ -905,18 +905,32 @@ void User::deserializeUser(ifstream& binInFile) {
     
     unsigned int addressLen;
     binInFile.read(reinterpret_cast<char*> (&addressLen), sizeof (addressLen));
+
+   
     
+    
+     unsigned int itemNameSizes[User::_totalHistory];
+        unsigned int itemNameLen;
+     
+    for (int i =0 ; i < User::_totalHistory; i++){
+      
+     // binInFile.read(reinterpret_cast<char*> (&itemNameSizes[i]), sizeof (itemNameSizes[i]));
+        
+         binInFile.read(reinterpret_cast<char*> (&itemNameLen), sizeof (itemNameLen));
+          itemNameSizes[i] = itemNameLen;
+     cout << "Item " << i << " name length read: " << itemNameSizes[i] << endl;
+    }
     
     string name(nameLen, '\0');
     binInFile.read(reinterpret_cast<char*> (&name[0]), nameLen);
     _name = name;
-    cout<<"878 "<<_name<<endl;
+   cout<<"Name: "<<_name<<endl;
 
     string userName(userNameLen, '\0');
     binInFile.read(reinterpret_cast<char*> (&userName[0]), userNameLen);
     _userName = userName;
 
- 
+    cout<<"username "<<_userName<<endl;
     string email(emailLen, '\0');
     binInFile.read(reinterpret_cast<char*> (&email[0]), emailLen);
     _email = email;
@@ -930,12 +944,49 @@ void User::deserializeUser(ifstream& binInFile) {
     string address(addressLen, '\0');
     binInFile.read(reinterpret_cast<char*> (&address[0]), addressLen);
     _address = address;
+    
+    
+     for (int i =0 ; i < User::_totalHistory; i++){
+//    string itemName(itemNameSizes[i], '\0');
+//    binInFile.read(reinterpret_cast<char*> (&itemName[0]), itemNameSizes[i]);
+//    _shoppingHistory[i].setName(itemName);
+//      cout << "Item " << i << " name: " << itemName << endl;
+//      
+      
+//          binInFile.read(reinterpret_cast<char*>(&itemNameSizes[i]), sizeof(itemNameSizes[i]));
+//    cout << "Item " << i << " name length read: " << itemNameSizes[i] << endl;
+
+   char tempName[256];  // Assuming a maximum name length of 256 characters
+    binInFile.read(tempName, itemNameSizes[i]);
+    tempName[itemNameSizes[i]] = '\0';  // Null terminate the string
+    string itemName(tempName);
+    _shoppingHistory[i].setName(itemName);
+    cout << "Item " << i << " name: " << itemName << endl;
+  
+    
+    }
+    
+ 
 
    // binInFile.read(reinterpret_cast<char*> (&_cartSize), sizeof (_cartSize));
     binInFile.read(reinterpret_cast<char*> (&_recNum), sizeof (_recNum));
     binInFile.read(reinterpret_cast<char*> (&_totalHistory), sizeof (_totalHistory));
-
-
     
-    cout<<"Deserializing Finished"<<endl;
+        float price;
+        int quant; 
+        for (int i =0 ; i < User::_totalHistory; i++){   
+         
+    binInFile.read(reinterpret_cast< char*> (&price), sizeof (price) );
+    binInFile.read(reinterpret_cast< char*> (&quant), sizeof (quant) );
+    
+    _shoppingHistory[i].setPrice(price);
+    _shoppingHistory[i].setQuant(quant);
+   
+    }
+
+//            for (int i = 0; i < User::_totalHistory; ++i) {
+//                _shoppingHistory[i].deserialize(binInFile);
+//               // _shoppingHistory[i].display();
+//            }
+        cout<<"deserializing complete"<<endl;
 }
