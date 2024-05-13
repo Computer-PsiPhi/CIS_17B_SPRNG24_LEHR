@@ -35,16 +35,19 @@ void setNumCusts(int n){this->_numCusts = n;};
 int getNumCusts()const {return this->_numCusts;};
 
 void startMenu();
-void userLogin();
-void userSignUp();
-void adminLogin();
+
 void adminMenu();
 void userMenu();
 void runMenu();
 
-User *findUser(const string &userName, const string &password);
-
 void signUp() ;
+
+void writeNumFile(int n);
+int  readNumFile();
+
+void modifyUserInfo();
+void removeUser();
+
 };
 
 #endif /* MENU_H */

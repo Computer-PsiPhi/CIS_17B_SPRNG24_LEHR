@@ -107,17 +107,7 @@ void Store::displayStore() {
 }
 
 const Item &Store::getItem(int itemNum)const {
-    //    bool isGood=false;
-    //       for (short i = 0; i < this->_totalItems && !isGood; i++) {
-    ////           cout<<"storecpp Enter item number: "<<endl;
-    ////           cin>>itemNum;
-    ////           cin.ignore();
-    //            if (this->_inventory[i].getItemNum() == itemNum) {
-    //                isGood = true;
-    //                break;
-    //            }
-    //        }
-    //    return this->_inventory[itemNum];
+
 
     try {
         while (true) {
@@ -260,7 +250,7 @@ void Store::serachStoreRecords() {
     unsigned int numProducts;
 
     inBinaryFile.read(reinterpret_cast<char*> (&numProducts), sizeof (numProducts));
-   // cout<<"227: "<<numProducts<<endl;
+ 
     if (inBinaryFile.fail()) {
         cout << "Error in reading amount of products" << endl;
         return;
@@ -356,8 +346,37 @@ void Store::searchBinaryRecords() {
     inBinaryFile.close();
 }
 
+void Store::addItem(const Item& newItem){
+    if (_totalItems < SIZE) {
+        _inventory[_totalItems++] = newItem;
+        cout << "Item added successfully!" << endl;
+    } else {
+        cout << "Inventory is full. Cannot add more items." << endl;
+    }
+}
 
+void Store::removeItem() {
+    
+    int itemNum;
+    cout << "Enter the item number of the item you want to remove: ";
+    cin >> itemNum;
+    
+    bool found = false;
+    for (int i = 0; i < _totalItems; ++i) {
+        if (_inventory[i].getItemNum() == itemNum) {
+            found = true;
+          
+            for (int j = i; j < _totalItems - 1; ++j) {
+                _inventory[j] = _inventory[j + 1];
+            }
+            // Decrement the total items count
+            _totalItems--;
+            cout << "Item removed successfully!" << endl;
+            break;  
+        }
+    }
+    if (!found) {
+        cout << "Item not found in the inventory." << endl;
+    }
+}
 
-/*TODO
- *  delete item from Item inventory array and update txt, binary etc everywhere
- */

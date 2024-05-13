@@ -119,14 +119,17 @@ public:
   static void decreaseUsers(){ _users++; };
   
   static int getNumUsers(){ return _users;  };
+  static void setNumUsers(int n){ _users = n; };
   
   void addToHistory();
   void displayShoppingHistory() ;
-// void serializeUser(ofstream& binOutFile);
+
      void deserializeUser(ifstream& binInFile);
       
     void serializeUser(std::ofstream& binOutFile) const ;
       
+    
+
 };
 #endif /* USER_H */
 

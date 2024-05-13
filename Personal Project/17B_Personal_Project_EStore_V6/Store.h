@@ -44,7 +44,10 @@ public:
     void serachStoreRecords();
     void searchBinaryRecords();
     
+    void addItem(const Item& newItem);
     
+   void removeItem( );
+ 
 };
 
 #endif /* STORE_H */
