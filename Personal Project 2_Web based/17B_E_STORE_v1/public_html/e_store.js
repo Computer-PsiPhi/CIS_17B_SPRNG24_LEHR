@@ -1,3 +1,3 @@
 
 
-// this is a test for js
+// this is a test for javascript 
