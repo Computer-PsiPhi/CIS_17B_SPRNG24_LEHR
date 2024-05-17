@@ -42,3 +42,11 @@ void Item::serialize(ofstream& ofs) const {
       ifs.read(reinterpret_cast<char*>(&_itemNum), sizeof(_itemNum));
       ifs.read(reinterpret_cast<char*>(&_quantity), sizeof(_quantity));     
 }
+  
+      void Item::display(){
+        cout << "Item Number: " << _itemNum << endl;
+        cout << "Name: " << _name << endl;
+        cout << "Price: $" << fixed << setprecision(2) << _price << endl;
+        cout << "Quantity: " << _quantity << endl;
+    }
+    

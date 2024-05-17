@@ -17,7 +17,6 @@ public:
     Database(const Database& orig);
     virtual ~Database();
 
-
 };
 
 #endif /* DATABASE_H */

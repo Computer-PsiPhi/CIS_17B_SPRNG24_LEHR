@@ -151,7 +151,7 @@ void Menu::userMenu() {
     cout << "5. Checkout" << endl;
     cout << "6. Exit" << endl;
     cout << "Enter your choice: ";
-}
+}a
 
 
 void Menu::runMenu() {

@@ -41,12 +41,7 @@ public:
     void serialize(ofstream& ofs) const ;
     void deserialize(ifstream& ifs) ;
     
-    void display(){
-        cout << "Item Number: " << _itemNum << endl;
-        cout << "Name: " << _name << endl;
-        cout << "Price: $" << fixed << setprecision(2) << _price << endl;
-        cout << "Quantity: " << _quantity << endl;
-    }
+    void display();
     
 };
 
