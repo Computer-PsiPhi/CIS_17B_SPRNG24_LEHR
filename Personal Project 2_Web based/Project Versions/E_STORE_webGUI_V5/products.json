@@ -1,0 +1,56 @@
+[
+    {
+        "id": 3,
+        "name": " Boots",
+        "price": 29,
+        "image": "image\/3.png"
+    },
+    {
+        "id": 4,
+        "name": " Jacket",
+        "price": 20,
+        "image": "image\/4.png"
+    },
+    {
+        "id": 6,
+        "name": " Shoes",
+        "price": 24,
+        "image": "image\/6.png"
+    },
+    {
+        "id": 7,
+        "name": " Sunglasses",
+        "price": 10,
+        "image": "image\/7.png"
+    },
+    {
+        "id": 9,
+        "name": "Umbrella",
+        "price": 7.99,
+        "image": "image\/9.png"
+    },
+    {
+        "id": 10,
+        "name": "Time Keeping Device",
+        "price": 68.99,
+        "image": "image\/10.png"
+    },
+    {
+        "id": 1,
+        "name": "Jeans",
+        "price": 15.99,
+        "image": "image\/1.png"
+    },
+    {
+        "id": 2,
+        "name": "Hat",
+        "price": 11.99,
+        "image": "image\/2.png"
+    },
+    {
+        "id": 11,
+        "name": "Socks",
+        "price": 4.99,
+        "image": "image\/11.png"
+    }
+]
